@@ -61,6 +61,8 @@ const Signup = () => {
     const [passwordError, setPasswordError] = useState("");
     const [loading, setLoading] = useState(false);
     const [googleLoading, setGoogleLoading] = useState(false);
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [confirmError, setConfirmError] = useState("");
 
     const brandGradient =
         "bg-gradient-to-r from-blue-600 to-purple-600";
@@ -72,39 +74,6 @@ const Signup = () => {
         return "";
     };
 
-    // const onSubmit = async (e) => {
-    //     e.preventDefault();
-    //     setLoading(true);
-    //     const formData = new FormData(e.currentTarget);
-    //     const user = Object.fromEntries(formData.entries());
-
-    //     const errorMsg = validatePassword(user.password);
-    //     if (errorMsg) {
-    //         setPasswordError(errorMsg);
-    //         return;
-    //     }
-
-    //     const { data, error } = await authClient.signUp.email({
-    //         email: user.email,
-    //         password: user.password,
-    //         name: user.name,
-    //         image: user.photoUrl,
-    //     });
-
-    //     if (data) {
-    //         await authClient.signOut();
-    //         toast.success("Account created successfully");
-    //         router.push("/signin");
-    //     }
-
-    //     if (error) {
-    //         toast.error(error.message);
-    //     }
-    // };
-
-
-
-
 
 
     const onSubmit = async (e) => {
@@ -115,6 +84,12 @@ const Signup = () => {
         try {
             const formData = new FormData(e.currentTarget);
             const user = Object.fromEntries(formData.entries());
+
+
+            if (user.password !== confirmPassword) {
+                setConfirmError("Passwords do not match");
+                return;
+            }
 
             const errorMsg = validatePassword(user.password);
             if (errorMsg) {
@@ -147,14 +122,6 @@ const Signup = () => {
         }
     };
 
-
-
-
-    // const handleGoogleSignup = async () => {
-    //     await authClient.signIn.social({
-    //         provider: "google",
-    //     });
-    // };
 
 
     const handleGoogleSignup = async () => {
@@ -212,7 +179,7 @@ const Signup = () => {
                         {/* Photo URL */}
                         <input
                             name="photoUrl"
-                            placeholder="Photo URL"
+                            placeholder="Photo URL (Optional)"
                             className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white placeholder:text-slate-500 focus:border-blue-500 outline-none"
                         />
 
@@ -238,7 +205,7 @@ const Signup = () => {
                                 onClick={() => setShowPassword(!showPassword)}
                                 className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400"
                             >
-                                {showPassword ? <EyeOff /> : <Eye />}
+                                {showPassword ? <Eye /> : <EyeOff />}
                             </button>
                         </div>
 
@@ -248,13 +215,34 @@ const Signup = () => {
                             </p>
                         )}
 
+
+                        {/* Confirm Password */}
+                        <div>
+
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                name="confirmPassword"
+                                placeholder="Confirm your Password"
+                                value={confirmPassword}
+                                onChange={(e) => {
+                                    setConfirmPassword(e.target.value);
+                                    setConfirmError("");
+                                }}
+                                className={`w-full bg-white/5 border rounded-2xl px-4 py-3 text-white placeholder:text-slate-500 outline-none pr-12 ${passwordError
+                                    ? "border-red-500"
+                                    : "border-white/10 focus:border-blue-500"
+                                    }`}
+                                required
+                            />
+
+                            {confirmError && (
+                                <p className="text-red-500 text-xs mt-2">
+                                    {confirmError}
+                                </p>
+                            )}
+                        </div>
+
                         {/* Submit */}
-                        {/* <button
-                            type="submit"
-                            className={`${brandGradient} w-full py-3 rounded-2xl text-white font-semibold hover:scale-[1.02] transition`}
-                        >
-                            Create Account
-                        </button> */}
 
                         <button
                             type="submit"
@@ -280,14 +268,6 @@ const Signup = () => {
                     </div>
 
                     {/* Google */}
-                    {/* <button
-                        onClick={handleGoogleSignup}
-                        className="w-full flex items-center justify-center gap-3 bg-white/5 border border-white/10 text-white py-3 rounded-2xl hover:bg-white/10 transition"
-                    >
-                        <FcGoogle className="text-xl" />
-                        Continue with Google
-                    </button> */}
-
 
                     <button disabled={googleLoading}
                         onClick={handleGoogleSignup}
