@@ -10,7 +10,7 @@ import { authClient } from "@/lib/auth-client";
 import { Eye, EyeOff } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 
-// ─── Left Panel: purely decorative, no logic ───────────────────────────────
+
 // ─── Left Panel: purely decorative, no logic ───────────────────────────────
 const LeftPanel = () => (
     <div className="hidden lg:flex flex-col items-center justify-center w-full h-full relative overflow-hidden select-none px-10 py-12 border-r border-white/10">

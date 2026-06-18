@@ -3,13 +3,26 @@
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Moon, Menu, X } from "lucide-react";
-import { Button } from "@heroui/react";
+import { Avatar, Button, Dropdown, Label } from "@heroui/react";
 import Link from "next/link";
 import NavLink from "./NavLink";
+import { authClient } from "@/lib/auth-client";
+import { BiLogOut } from "react-icons/bi";
+import { MdDashboard } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
 
 const Navbar = () => {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
+
+    const { data: session, isPending } = authClient.useSession();
+    const user = session?.user;
+
+    console.log(user)
+
+    const handleSignOut = async () => {
+        await authClient.signOut();
+    };
 
     return (
         <nav className="relative sticky top-0 z-50 bg-[#0D0D0D]/80 backdrop-blur-xl border-b border-white/10">
@@ -34,34 +47,184 @@ const Navbar = () => {
                             </span>
                         </Link>
 
-                        {/* Desktop Nav */}
-                        <div className="hidden md:flex items-center space-x-6">
-                            <NavLink href="/">Home</NavLink>
-                            <NavLink href="/browse">Browse Books</NavLink>
-                            <NavLink href="/about">About</NavLink>
-                        </div>
+
                     </div>
+
+
+
+                    {/* Desktop Nav middle */}
+                    <div className="hidden md:flex items-center space-x-6">
+                        <NavLink href="/">Home</NavLink>
+                        <NavLink href="/browse">Browse Books</NavLink>
+                        <NavLink href="/about">About</NavLink>
+                    </div>
+
 
                     {/* RIGHT SIDE */}
                     <div className="hidden md:flex items-center space-x-4">
 
-                        {/* Dark Mode */}
-                        <button className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition">
-                            <Moon className="w-5 h-5" />
-                        </button>
+                        {!user && (
+                            <div className="hidden items-center gap-4 md:flex">
+                                <Link href="/signin">Login</Link>
+                                <Link href="/signup">
+                                    <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium px-5 py-2  hover:scale-105 transition rounded-2xl">
+                                        Signup
+                                    </button>
+                                </Link>
+                            </div>
+                        )}
 
-                        {/* Login Button */}
-                        <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium px-5 hover:scale-105 transition">
-                            Log In
-                        </Button>
+
+                        {user && (
+                            <div className="hidden items-center gap-4 md:flex">
+                                <Dropdown>
+                                    <Dropdown.Trigger className="rounded-full">
+                                        <Avatar size="sm" aria-label="Menu">
+                                            <Avatar.Image
+                                                referrerPolicy="no-referrer"
+                                                alt="John Doe"
+                                                src={user?.image}
+                                            />
+                                            <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
+                                        </Avatar>
+                                    </Dropdown.Trigger>
+                                    <Dropdown.Popover>
+                                        <div className="px-3 pt-3 pb-1 mr-2">
+                                            <div className="flex items-center gap-2">
+                                                <Avatar>
+                                                    <Avatar.Image
+                                                        src={user?.image}
+                                                        alt={user?.name}
+                                                        referrerPolicy="no-referrer"
+                                                    />
+                                                    <Avatar.Fallback>
+                                                        {user?.name?.charAt(0)}
+                                                    </Avatar.Fallback>
+                                                </Avatar>
+                                                <div className="flex flex-col gap-0">
+                                                    <p className="text-sm leading-5 font-medium">
+                                                        {user?.name}
+                                                    </p>
+                                                    <p className="text-xs leading-none text-muted">
+                                                        {user?.email}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <Dropdown.Menu
+                                            onAction={(key) => console.log(`Selected: ${key}`)}
+                                        >
+                                            <Dropdown.Item id="new-file" textValue="New file">
+                                                <Link
+                                                    className="flex items-center gap-2"
+                                                    href={`/dashboard/${user?.role}`}
+                                                >
+                                                    <MdDashboard />
+                                                    <Label>Dashboard</Label>
+                                                </Link>
+                                            </Dropdown.Item>
+
+                                            <Dropdown.Item id="copy-link" textValue="Copy link">
+                                                <CgProfile />
+                                                <Label>Profile</Label>
+                                            </Dropdown.Item>
+
+                                            <Dropdown.Item
+                                                id="delete-file"
+                                                textValue="Delete file"
+                                                variant="danger"
+                                                onClick={handleSignOut}
+                                            >
+                                                <BiLogOut />
+                                                <Label>Logout</Label>
+                                            </Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown.Popover>
+                                </Dropdown>
+                            </div>
+                        )}
 
                     </div>
 
                     {/* MOBILE BUTTON */}
-                    <div className="md:hidden flex items-center">
+                    {/* MOBILE BUTTONS */}
+                    <div className="md:hidden flex items-center gap-3">
+
+                        {user && (
+                            <Dropdown>
+                                <Dropdown.Trigger className="rounded-full">
+                                    <Avatar size="sm">
+                                        <Avatar.Image
+                                            src={user?.image}
+                                            alt={user?.name}
+                                            referrerPolicy="no-referrer"
+                                        />
+                                        <Avatar.Fallback>
+                                            {user?.name?.charAt(0)}
+                                        </Avatar.Fallback>
+                                    </Avatar>
+                                </Dropdown.Trigger>
+
+                                <Dropdown.Popover>
+                                    <div className="px-3 pt-3 pb-2">
+                                        <div className="flex items-center gap-3">
+                                            <Avatar>
+                                                <Avatar.Image
+                                                    src={user?.image}
+                                                    alt={user?.name}
+                                                    referrerPolicy="no-referrer"
+                                                />
+                                                <Avatar.Fallback>
+                                                    {user?.name?.charAt(0)}
+                                                </Avatar.Fallback>
+                                            </Avatar>
+
+                                            <div>
+                                                <p className="text-sm font-medium">
+                                                    {user?.name}
+                                                </p>
+                                                <p className="text-xs text-muted">
+                                                    {user?.email}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <Dropdown.Menu>
+
+                                        <Dropdown.Item>
+                                            <Link
+                                                href={`/dashboard/${user?.role}`}
+                                                className="flex items-center gap-2"
+                                            >
+                                                <MdDashboard />
+                                                <Label>Dashboard</Label>
+                                            </Link>
+                                        </Dropdown.Item>
+
+                                        <Dropdown.Item>
+                                            <div className="flex items-center gap-2">
+                                                <CgProfile />
+                                                <Label>Profile</Label>
+                                            </div>
+                                        </Dropdown.Item>
+
+                                        <Dropdown.Item
+                                            variant="danger"
+                                            onClick={handleSignOut}
+                                        >
+                                            <BiLogOut />
+                                            <Label>Logout</Label>
+                                        </Dropdown.Item>
+
+                                    </Dropdown.Menu>
+                                </Dropdown.Popover>
+                            </Dropdown>
+                        )}
+
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="p-2 text-slate-300 hover:text-white"
+                            className="rounded-xl border border-white/10 bg-white/5 p-2 text-slate-300 hover:text-white hover:bg-white/10 transition"
                         >
                             {isOpen ? (
                                 <X className="w-6 h-6" />
@@ -69,61 +232,87 @@ const Navbar = () => {
                                 <Menu className="w-6 h-6" />
                             )}
                         </button>
+
                     </div>
 
                 </div>
             </div>
 
+
             {/* MOBILE MENU */}
             {isOpen && (
-                <div className="md:hidden bg-[#111111] border-t border-white/10 px-4 py-4 space-y-2">
+                <div className="md:hidden border-t border-white/10 bg-[#0D0D0D]/95 backdrop-blur-xl">
 
-                    <Link
-                        href="/"
-                        onClick={() => setIsOpen(false)}
-                        className={`block py-2 font-medium ${pathname === "/"
-                                ? "text-blue-400"
-                                : "text-slate-400 hover:text-white"
-                            }`}
-                    >
-                        Home
-                    </Link>
+                    <div className="px-4 py-5 space-y-2">
 
-                    <Link
-                        href="/browse"
-                        onClick={() => setIsOpen(false)}
-                        className={`block py-2 font-medium ${pathname === "/browse"
-                                ? "text-blue-400"
-                                : "text-slate-400 hover:text-white"
-                            }`}
-                    >
-                        Browse Books
-                    </Link>
+                        {/* Routes */}
+                        <Link
+                            href="/"
+                            onClick={() => setIsOpen(false)}
+                            className={`block rounded-xl px-4 py-3 transition ${pathname === "/"
+                                    ? "bg-blue-500/10 text-blue-400"
+                                    : "text-slate-300 hover:bg-white/5"
+                                }`}
+                        >
+                            Home
+                        </Link>
 
-                    <Link
-                        href="/about"
-                        onClick={() => setIsOpen(false)}
-                        className={`block py-2 font-medium ${pathname === "/about"
-                                ? "text-blue-400"
-                                : "text-slate-400 hover:text-white"
-                            }`}
-                    >
-                        About
-                    </Link>
+                        <Link
+                            href="/browse"
+                            onClick={() => setIsOpen(false)}
+                            className={`block rounded-xl px-4 py-3 transition ${pathname === "/browse"
+                                    ? "bg-blue-500/10 text-blue-400"
+                                    : "text-slate-300 hover:bg-white/5"
+                                }`}
+                        >
+                            Browse Books
+                        </Link>
 
-                    <div className="pt-3 border-t border-white/10">
-                        <button className="flex items-center gap-2 text-slate-400">
-                            <Moon className="w-4 h-4" />
-                            Dark Mode
-                        </button>
+                        <Link
+                            href="/about"
+                            onClick={() => setIsOpen(false)}
+                            className={`block rounded-xl px-4 py-3 transition ${pathname === "/about"
+                                    ? "bg-blue-500/10 text-blue-400"
+                                    : "text-slate-300 hover:bg-white/5"
+                                }`}
+                        >
+                            About
+                        </Link>
+
+                        {/* Divider */}
+                        <div className="my-4 border-t border-white/10" />
+
+                        {/* USER LOGIC */}
+                        {!user && (
+                        
+                            <>
+                                <Link
+                                    href="/signin"
+                                    onClick={() => setIsOpen(false)}
+                                    className="block"
+                                >
+                                    <button className="w-full rounded-xl border border-white/10 bg-white/5 py-3 text-white hover:bg-white/10">
+                                        Login
+                                    </button>
+                                </Link>
+
+                                <Link
+                                    href="/signup"
+                                    onClick={() => setIsOpen(false)}
+                                    className="block"
+                                >
+                                    <button className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 py-3 font-medium text-white hover:opacity-90">
+                                        Signup
+                                    </button>
+                                </Link>
+                            </>
+                        )}
+
                     </div>
-
-                    <Button className="w-full mt-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-                        Log In
-                    </Button>
-
                 </div>
             )}
+
+
         </nav>
     );
 };
