@@ -28,7 +28,7 @@ const LeftPanel = () => (
             {/* Brand */}
             <div className="space-y-2">
                 <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-                    Create Your Account
+                    Login Your Account
                 </h2>
                 <p className="text-slate-400 text-sm text-center items-center leading-relaxed ">
                     Your knowledge, beautifully organised.
@@ -60,6 +60,8 @@ const Signin = () => {
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [passwordError, setPasswordError] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [googleLoading, setGoogleLoading] = useState(false);
 
     const brandGradient =
         "bg-gradient-to-r from-blue-600 to-purple-600";
@@ -71,40 +73,60 @@ const Signin = () => {
         return "";
     };
 
+
+
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        const formData = new FormData(e.currentTarget);
-        const user = Object.fromEntries(formData.entries());
+        setLoading(true);
 
-        const errorMsg = validatePassword(user.password);
-        if (errorMsg) {
-            setPasswordError(errorMsg);
-            return;
-        }
+        try {
+            const formData = new FormData(e.currentTarget);
+            const user = Object.fromEntries(formData.entries());
 
-        const { data, error } = await authClient.signIn.email({
-            email: user.email,
-            password: user.password,
-            name: user.name,
-            image: user.photoUrl,
-        });
+            const errorMsg = validatePassword(user.password);
+            if (errorMsg) {
+                setPasswordError(errorMsg);
+                setLoading(false);
+                return;
+            }
 
-        if (data) {
-            await authClient.signOut();
-            toast.success("Login successfully");
-            router.push("/");
-        }
+            const { data, error } = await authClient.signIn.email({
+                email: user.email,
+                password: user.password,
+            });
 
-        if (error) {
-            toast.error(error.message);
+            if (data) {
+                toast.success("Login successfully");
+                router.push("/");
+            }
+
+            if (error) {
+                toast.error(error.message);
+            }
+
+        } catch (err) {
+            toast.error("Something went wrong");
+        } finally {
+            setLoading(false);
         }
     };
 
+
+
+
     const handleGoogleSignin = async () => {
-        await authClient.signIn.social({
-            provider: "google",
-        });
+        setGoogleLoading(true);
+
+        try {
+            await authClient.signIn.social({
+                provider: "google",
+            });
+        } catch (error) {
+            toast.error("Google Sign In Failed");
+        } finally {
+            setGoogleLoading(false);
+        }
     };
 
     return (
@@ -173,11 +195,26 @@ const Signin = () => {
                         )}
 
                         {/* Submit */}
-                        <button
+                        {/* <button
                             type="submit"
                             className={`${brandGradient} w-full py-3 rounded-2xl text-white font-semibold hover:scale-[1.02] transition`}
                         >
                             Login
+                        </button> */}
+
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className={`${brandGradient} w-full py-3 rounded-2xl text-white font-semibold flex items-center justify-center gap-2 disabled:opacity-70`}
+                        >
+                            {loading ? (
+                                <>
+                                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                    Logging in...
+                                </>
+                            ) : (
+                                "Login"
+                            )}
                         </button>
                     </form>
 
@@ -189,22 +226,31 @@ const Signin = () => {
                     </div>
 
                     {/* Google */}
-                    <button
+                    <button disabled={googleLoading}
                         onClick={handleGoogleSignin}
                         className="w-full flex items-center justify-center gap-3 bg-white/5 border border-white/10 text-white py-3 rounded-2xl hover:bg-white/10 transition"
                     >
-                        <FcGoogle className="text-xl" />
-                        Continue with Google
+                        {googleLoading ? (
+                            <>
+                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                Signing in...
+                            </>
+                        ) : (
+                            <>
+                                <FcGoogle className="text-xl" />
+                                Continue with Google
+                            </>
+                        )}
                     </button>
 
                     {/* Login */}
                     <p className="text-center text-slate-400 text-sm mt-6">
-                        Already have an account?{" "}
+                        Don’t have an account?{" "}
                         <Link
-                            href="/signin"
+                            href="/signup"
                             className="text-blue-400 hover:underline"
                         >
-                            Login
+                            Signup
                         </Link>
                     </p>
                 </div>
