@@ -1,32 +1,40 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-// import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import {  Moon, Menu, X } from 'lucide-react';
-import { Button } from '@heroui/react';
-import Link from 'next/link';
-import NavLink from './NavLink';
+import React, { useState } from "react";
+import { usePathname } from "next/navigation";
+import { Moon, Menu, X } from "lucide-react";
+import { Button } from "@heroui/react";
+import Link from "next/link";
+import NavLink from "./NavLink";
 
-
-
-// ২. মূল Navbar কম্পোনেন্ট
 const Navbar = () => {
     const pathname = usePathname();
-    const [isOpen, setIsOpen] = useState(false); // মোবাইল মেনুর জন্য স্টেট
+    const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <nav className="bg-gray-200 border-b border-gray-200 font-sans sticky top-0 z-50">
+        <nav className="relative sticky top-0 z-50 bg-[#0D0D0D]/80 backdrop-blur-xl border-b border-white/10">
+
+            {/* Bottom Glow Line */}
+            <div className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-blue-500/50 to-purple-500/50" />
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
 
-                    {/* বাম পাশ: লোগো এবং ডেক্সটপ মেনু লিংক */}
+                    {/* LEFT SIDE */}
                     <div className="flex items-center space-x-8">
-                        <Link href="/" className="text-[#003399] font-bold text-xl tracking-tight shrink-0">
-                            BiblioDrop
+
+                        {/* Logo */}
+                        <Link
+                            href="/"
+                            className="text-2xl font-bold tracking-tight"
+                        >
+                            <span className="text-white">Biblio</span>
+                            <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                                Drop
+                            </span>
                         </Link>
 
-                        {/* ডেক্সটপ লিংকসমূহ */}
+                        {/* Desktop Nav */}
                         <div className="hidden md:flex items-center space-x-6">
                             <NavLink href="/">Home</NavLink>
                             <NavLink href="/browse">Browse Books</NavLink>
@@ -34,54 +42,86 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    {/* ডান পাশ: সার্চ বার এবং ডার্ক মোড আইকন */}
-                    <div className="hidden md:flex items-center space-x-5">
+                    {/* RIGHT SIDE */}
+                    <div className="hidden md:flex items-center space-x-4">
 
-
-                        {/* ডার্ক মোড আইকন */}
-                        <button className="text-gray-700 hover:text-black p-1">
-                            <Moon className="w-5 h-5 transform rotate-[-15deg]" />
+                        {/* Dark Mode */}
+                        <button className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition">
+                            <Moon className="w-5 h-5" />
                         </button>
 
-                        <div>
-                            <Button variant='danger'>Log in</Button>
-                        </div>
+                        {/* Login Button */}
+                        <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium px-5 hover:scale-105 transition">
+                            Log In
+                        </Button>
+
                     </div>
 
-                    {/* মোবাইল মেনু বাটন */}
-                    <div className="flex md:hidden items-center">
+                    {/* MOBILE BUTTON */}
+                    <div className="md:hidden flex items-center">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="text-gray-700 hover:text-[#003399] focus:outline-none p-2"
+                            className="p-2 text-slate-300 hover:text-white"
                         >
-                            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                            {isOpen ? (
+                                <X className="w-6 h-6" />
+                            ) : (
+                                <Menu className="w-6 h-6" />
+                            )}
                         </button>
                     </div>
 
                 </div>
             </div>
 
-            {/* মোবাইল ড্রয়ার মেনু */}
+            {/* MOBILE MENU */}
             {isOpen && (
-                <div className="md:hidden bg-white border-t border-gray-100 px-4 pt-2 pb-4 space-y-3 shadow-inner">
-             
-                    {/* মোবাইল লিংকসমূহ */}
-                    <Link href="/" className={`block font-semibold text-base py-1 ${pathname === '/' ? 'text-[#003399]' : 'text-gray-600'}`}>Home</Link>
-                    <Link href="/browse" className={`block font-semibold text-base py-1 ${pathname === '/browse' ? 'text-[#003399]' : 'text-gray-600'}`}>Browse Books</Link>
-                    <Link href="/about" className={`block font-semibold text-base py-1 ${pathname === '/about' ? 'text-[#003399]' : 'text-gray-600'}`}>About</Link>
+                <div className="md:hidden bg-[#111111] border-t border-white/10 px-4 py-4 space-y-2">
 
-                    {/* ডার্ক মোড বাটন */}
-                    <div className="border-t border-gray-100 pt-3">
-                        <button className="text-gray-600 p-1 flex items-center space-x-2 text-sm w-full">
-                            <Moon className="w-4 h-4" /> <span>Dark Mode</span>
+                    <Link
+                        href="/"
+                        onClick={() => setIsOpen(false)}
+                        className={`block py-2 font-medium ${pathname === "/"
+                                ? "text-blue-400"
+                                : "text-slate-400 hover:text-white"
+                            }`}
+                    >
+                        Home
+                    </Link>
+
+                    <Link
+                        href="/browse"
+                        onClick={() => setIsOpen(false)}
+                        className={`block py-2 font-medium ${pathname === "/browse"
+                                ? "text-blue-400"
+                                : "text-slate-400 hover:text-white"
+                            }`}
+                    >
+                        Browse Books
+                    </Link>
+
+                    <Link
+                        href="/about"
+                        onClick={() => setIsOpen(false)}
+                        className={`block py-2 font-medium ${pathname === "/about"
+                                ? "text-blue-400"
+                                : "text-slate-400 hover:text-white"
+                            }`}
+                    >
+                        About
+                    </Link>
+
+                    <div className="pt-3 border-t border-white/10">
+                        <button className="flex items-center gap-2 text-slate-400">
+                            <Moon className="w-4 h-4" />
+                            Dark Mode
                         </button>
                     </div>
 
+                    <Button className="w-full mt-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                        Log In
+                    </Button>
 
-
-                    <div>
-                        <Button variant='danger'>Log in</Button>
-                    </div>
                 </div>
             )}
         </nav>
@@ -89,4 +129,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

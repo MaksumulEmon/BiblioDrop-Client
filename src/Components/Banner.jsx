@@ -1,3 +1,99 @@
+// "use client";
+
+// import Link from "next/link";
+
+// export default function Banner() {
+//     return (
+//         <section className="relative overflow-hidden bg-[#0D0D0D] py-10 flex items-center">
+
+//             {/* Soft Glow Background */}
+//             <div className="absolute w-[500px] h-[500px] bg-blue-500/20 blur-3xl rounded-full top-[-100px] left-[-100px]" />
+
+//             <div className="absolute w-[400px] h-[400px] bg-purple-500/10 blur-3xl rounded-full bottom-[-100px] right-[-100px]" />
+
+//             {/* Content */}
+//             <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full">
+//                 <div className="max-w-3xl">
+
+//                     {/* Badge */}
+//                     <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-4 py-2 text-sm text-indigo-300 mb-6">
+//                         ✨ Trusted by 12,000+ Readers
+//                     </div>
+
+//                     {/* Heading */}
+//                     <h1 className="text-5xl md:text-7xl font-bold leading-tight tracking-tight text-white">
+//                         Discover,
+//                         <span className="block bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+//                             Borrow & Read
+//                         </span>
+//                         Books Effortlessly
+//                     </h1>
+
+//                     {/* Description */}
+//                     <p className="mt-6 text-lg text-slate-400 leading-relaxed max-w-2xl">
+//                         Browse thousands of books from libraries and independent
+//                         owners. Request your favorite books and enjoy seamless
+//                         delivery right at your doorstep.
+//                     </p>
+
+//                     {/* Buttons */}
+//                     <div className="mt-10 flex flex-wrap gap-4">
+//                         <Link
+//                             href="/browse"
+//                             className="rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-7 py-3 text-white font-medium transition hover:scale-105"
+//                         >
+//                             Browse Books
+//                         </Link>
+
+//                         <Link
+//                             href="/about"
+//                             className="rounded-xl border border-white/10 bg-white/5 px-7 py-3 text-white transition hover:bg-white/10"
+//                         >
+//                             Learn More
+//                         </Link>
+//                     </div>
+
+//                     {/* Stats */}
+//                     <div className="mt-14 flex flex-wrap gap-5">
+
+//                         <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl px-6 py-5">
+//                             <h3 className="text-2xl font-bold text-blue-400">
+//                                 2,400+
+//                             </h3>
+//                             <p className="text-sm text-slate-400">
+//                                 Books Available
+//                             </p>
+//                         </div>
+
+//                         <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl px-6 py-5">
+//                             <h3 className="text-2xl font-bold text-blue-400">
+//                                 180+
+//                             </h3>
+//                             <p className="text-sm text-slate-400">
+//                                 Libraries
+//                             </p>
+//                         </div>
+
+//                         <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl px-6 py-5">
+//                             <h3 className="text-2xl font-bold text-blue-400">
+//                                 12K+
+//                             </h3>
+//                             <p className="text-sm text-slate-400">
+//                                 Happy Readers
+//                             </p>
+//                         </div>
+
+//                     </div>
+//                 </div>
+//             </div>
+//         </section>
+//     );
+// }
+
+
+
+
+
 
 
 
@@ -5,158 +101,244 @@
 
 import { useState, useEffect } from "react";
 
-const slides = [
-    {
-        id: 1,
-        image:
-            "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1400&q=80",
-        badge: "📚 Premium Book Delivery",
-        heading: "Your Local Library,",
-        highlight: "Delivered.",
-        sub: "Browse thousands of books from local libraries and independent owners. Request doorstep delivery in minutes.",
-    },
-    {
-        id: 2,
-        image:
-            "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1400&q=80",
-        badge: "🔖 10,000+ Books Available",
-        heading: "Read More,",
-        highlight: "Travel Less.",
-        sub: "Skip the commute. Get your favorite books delivered straight to your door.",
-    },
-    {
-        id: 3,
-        image:
-            "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1400&q=80",
-        badge: "⭐ Trusted by 12k+ Readers",
-        heading: "Discover Books",
-        highlight: "You'll Love.",
-        sub: "From fiction to academics — explore curated collections and reviews.",
-    },
+import Link from "next/link";
+import Image from "next/image";
+
+
+
+const images = [
+
+    "https://cdn.pixabay.com/photo/2024/03/30/12/01/book-8664639_1280.jpg",
+
+    "https://cdn.pixabay.com/photo/2017/12/11/16/12/book-3012622_1280.jpg",
+
+    "https://cdn.pixabay.com/photo/2021/11/15/20/29/book-6799314_1280.jpg",
+
 ];
 
+
+
 export default function Banner() {
+
     const [current, setCurrent] = useState(0);
-    const [animating, setAnimating] = useState(false);
+
+
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            goTo((current + 1) % slides.length);
-        }, 5000);
 
-        return () => clearInterval(timer);
-    }, [current]);
+        const interval = setInterval(() => {
 
-    const goTo = (index) => {
-        if (animating) return;
+            setCurrent((prev) => (prev + 1) % images.length);
 
-        setAnimating(true);
-        setTimeout(() => {
-            setCurrent(index);
-            setAnimating(false);
-        }, 300);
-    };
+        }, 2000);
 
-    const slide = slides[current];
+
+
+        return () => clearInterval(interval);
+
+    }, []);
+
+
 
     return (
-        <section className="relative min-h-[560px] overflow-hidden">
 
-            {/* Background */}
-            <div
-                className={`absolute inset-0 bg-cover bg-center transition-opacity duration-500 ${animating ? "opacity-0" : "opacity-100"
-                    }`}
-                style={{ backgroundImage: `url(${slide.image})` }}
-            />
+        <section className="relative overflow-hidden bg-[#0D0D0D] min-h-20 flex items-center">
 
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/20" />
 
-            {/* Content */}
-            <div
-                className={`relative z-10 flex h-full items-center px-6 md:px-16 transition-all duration-500 ${animating ? "translate-y-3 opacity-0" : "translate-y-0 opacity-100"
-                    }`}
-            >
-                <div className="max-w-2xl">
 
-                    {/* Badge */}
-                    <div className="inline-flex mt-5 items-center rounded-full border border-blue-400/30 bg-blue-500/10 px-4 py-1 text-xs text-blue-200 mb-5">
-                        {slide.badge}
-                    </div>
+            {/* Glow Background */}
 
-                    
+            <div className="absolute w-[500px] h-[500px] bg-blue-500/20 blur-3xl rounded-full top-[-100px] left-[-100px]" />
 
-                    {/* Heading */}
-                    <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
-                        {slide.heading}
-                        <br />
-                        <span className="text-blue-500">{slide.highlight}</span>
-                    </h1>
 
-                    {/* Subtitle */}
-                    <p className="mt-5 text-gray-300 text-sm md:text-base leading-relaxed max-w-lg">
-                        {slide.sub}
-                    </p>
 
-                    {/* Buttons */}
-                    <div className="mt-8 flex gap-4 flex-wrap">
-                        <button className="bg-blue-600 hover:bg-blue-700 transition px-6 py-3 rounded-lg text-white font-medium">
-                            Browse Books →
-                        </button>
+            <div className="absolute w-[400px] h-[400px] bg-purple-500/10 blur-3xl rounded-full bottom-[-100px] right-[-100px]" />
 
-                        <button className="border border-white/30 hover:border-white/70 hover:bg-white/10 transition px-6 py-3 rounded-lg text-white">
-                            How it works
-                        </button>
-                    </div>
 
-                    {/* Stats */}
-                    <div className="mt-10 flex gap-8 border-t border-white/10 pt-6 flex-wrap">
-                        <div>
-                            <p className="text-blue-500 font-bold text-xl">2,400+</p>
-                            <p className="text-xs text-gray-400">Books</p>
+
+            <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-20 w-full">
+
+
+
+                <div className="grid lg:grid-cols-2 gap-16 items-center">
+
+
+
+                    {/* Left Content */}
+
+                    <div>
+
+                        <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-2 text-sm text-blue-300 mb-6">
+
+                            ✨ Trusted by 12,000+ Readers
+
                         </div>
 
-                        <div>
-                            <p className="text-blue-500 font-bold text-xl">180+</p>
-                            <p className="text-xs text-gray-400">Librarians</p>
+
+
+                        <h1 className="text-5xl md:text-7xl font-bold leading-tight text-white">
+
+                            Find Your Next
+
+
+
+                            <span className="block bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+
+                                Favorite Book
+
+                            </span>
+
+                        </h1>
+
+
+
+                        <p className="mt-6 text-lg text-slate-400 max-w-xl leading-relaxed">
+
+                            Discover thousands of books from libraries and independent
+
+                            owners. Borrow books instantly and enjoy doorstep delivery.
+
+                        </p>
+
+
+
+                        <div className="mt-10 flex flex-wrap gap-4">
+
+                            <Link
+
+                                href="/browse"
+
+                                className="rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-7 py-3 text-white font-medium transition hover:scale-105"
+
+                            >
+
+                                Browse Books
+
+                            </Link>
+
+
+
+                            <Link
+
+                                href="/about"
+
+                                className="rounded-xl border border-white/10 bg-white/5 px-7 py-3 text-white hover:bg-white/10 transition"
+
+                            >
+
+                                Learn More
+
+                            </Link>
+
                         </div>
 
-                        <div>
-                            <p className="text-blue-500 font-bold text-xl">12k+</p>
-                            <p className="text-xs text-gray-400">Deliveries</p>
+
+
+                        {/* Stats */}
+
+                        <div className="mt-12 flex flex-wrap gap-4">
+
+                            <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-5">
+
+                                <h3 className="text-2xl font-bold text-blue-400">2,400+</h3>
+
+                                <p className="text-sm text-slate-400">Books</p>
+
+                            </div>
+
+
+
+                            <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-5">
+
+                                <h3 className="text-2xl font-bold text-blue-400">180+</h3>
+
+                                <p className="text-sm text-slate-400">Libraries</p>
+
+                            </div>
+
+
+
+                            <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-5">
+
+                                <h3 className="text-2xl font-bold text-blue-400">12K+</h3>
+
+                                <p className="text-sm text-slate-400">Readers</p>
+
+                            </div>
+
                         </div>
+
                     </div>
+
+
+
+                    {/* Right Image Slider */}
+
+                    <div className="relative flex justify-center">
+
+
+
+                        <div className="absolute w-80 h-80 bg-blue-500/20 blur-3xl rounded-full" />
+
+
+
+                        <div className="relative w-full max-w-lg">
+
+
+
+                            <Image
+                                src={images[current]}
+                                alt="Books"
+                                width={550}
+                                height={550}
+                                className="w-full h-[550px]  rounded-3xl border border-white/10 shadow-2xl transition-all duration-700"
+                                priority
+                            />
+
+
+
+                            {/* Dots */}
+
+                            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2">
+
+                                {images.map((_, index) => (
+
+                                    <button
+
+                                        key={index}
+
+                                        onClick={() => setCurrent(index)}
+
+                                        className={`h-2 rounded-full transition-all duration-300 ${current === index
+
+                                            ? "w-8 bg-blue-500"
+
+                                            : "w-2 bg-white/40"
+
+                                            }`}
+
+                                    />
+
+                                ))}
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+                    </div>
+
+
+
                 </div>
+
             </div>
 
-            {/* Dots */}
-            <div className="absolute bottom-8 left-6 flex gap-2 z-10">
-                {slides.map((_, i) => (
-                    <button
-                        key={i}
-                        onClick={() => goTo(i)}
-                        className={`h-2 rounded-full transition-all duration-300 ${i === current
-                                ? "w-7 bg-blue-500"
-                                : "w-2 bg-white/30"
-                            }`}
-                    />
-                ))}
-            </div>
-
-            {/* Right thumbnails */}
-            <div className="absolute right-6 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-10">
-                {slides.map((s, i) => (
-                    <div
-                        key={i}
-                        onClick={() => goTo(i)}
-                        className={`h-10 w-14 cursor-pointer rounded-md bg-cover bg-center border transition ${i === current
-                                ? "border-blue-500 opacity-100"
-                                : "border-white/20 opacity-60"
-                            }`}
-                        style={{ backgroundImage: `url(${s.image})` }}
-                    />
-                ))}
-            </div>
         </section>
+
     );
+
 }
