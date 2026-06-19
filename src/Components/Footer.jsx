@@ -1,13 +1,19 @@
 
-
+'use client'
 import React from 'react';
 import Link from 'next/link';
 import { FaFacebook } from 'react-icons/fa';
 import { BsInstagram, BsTwitter } from 'react-icons/bs';
 import { GiThunderBlade } from 'react-icons/gi';
 import { Mail, MapPin, Phone } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 const Footer = () => {
+
+    const pathname = usePathname()
+    if (pathname.includes('dashboard')) {
+        return null;
+    }
     return (
         <footer className="bg-white dark:bg-[#0B0B0F]/80 border-t border-gray-200 dark:border-zinc-800/80 font-sans text-gray-600 dark:text-zinc-400 transition-colors duration-200 backdrop-blur-sm">
             {/* মেইন ফুটার কন্টেন্ট */}
