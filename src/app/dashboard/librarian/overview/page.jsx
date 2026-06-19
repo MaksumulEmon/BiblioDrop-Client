@@ -1,11 +1,11 @@
 import React from 'react';
 
-const page = () => {
+const OverViewPage = () => {
     return (
         <div>
-            librian
+            Overview
         </div>
     );
 };
 
-export default page;
+export default OverViewPage;
