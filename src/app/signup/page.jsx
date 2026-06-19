@@ -81,6 +81,8 @@ const Signup = () => {
 
         setLoading(true);
 
+        // console.log(user,"hello");
+
         try {
             const formData = new FormData(e.currentTarget);
             const user = Object.fromEntries(formData.entries());
@@ -103,6 +105,8 @@ const Signup = () => {
                 password: user.password,
                 name: user.name,
                 image: user.photoUrl,
+                role: user.role,
+                plan:'free'
             });
 
             if (data) {
@@ -182,6 +186,30 @@ const Signup = () => {
                             placeholder="Photo URL (Optional)"
                             className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white placeholder:text-slate-500 focus:border-blue-500 outline-none"
                         />
+
+
+
+                        {/* Role */}
+                        <div>
+                            <select
+                                name="role"
+                                required
+                                className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white outline-none focus:border-blue-500"
+                                defaultValue=""
+                            >
+                                <option value="" disabled className="bg-[#0D0D0D]">
+                                    Choose your role
+                                </option>
+
+                                <option value="reader" className="bg-[#0D0D0D]">
+                                    Reader
+                                </option>
+
+                                <option value="librarian" className="bg-[#0D0D0D]">
+                                    Librarian
+                                </option>
+                            </select>
+                        </div>
 
                         {/* Password */}
                         <div className="relative">
