@@ -12,7 +12,7 @@ import { MdDashboard } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 
 const Navbar = () => {
-    const pathname = usePathname();
+    // const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
 
     const { data: session, isPending } = authClient.useSession();
@@ -23,6 +23,11 @@ const Navbar = () => {
     const handleSignOut = async () => {
         await authClient.signOut();
     };
+
+    const pathname = usePathname()
+    if (pathname.includes('dashboard')) {
+        return null;
+    }
 
     return (
         <nav className="relative sticky top-0 z-50 bg-[#0D0D0D]/80 backdrop-blur-xl border-b border-white/10">
@@ -250,8 +255,8 @@ const Navbar = () => {
                             href="/"
                             onClick={() => setIsOpen(false)}
                             className={`block rounded-xl px-4 py-3 transition ${pathname === "/"
-                                    ? "bg-blue-500/10 text-blue-400"
-                                    : "text-slate-300 hover:bg-white/5"
+                                ? "bg-blue-500/10 text-blue-400"
+                                : "text-slate-300 hover:bg-white/5"
                                 }`}
                         >
                             Home
@@ -261,8 +266,8 @@ const Navbar = () => {
                             href="/browse"
                             onClick={() => setIsOpen(false)}
                             className={`block rounded-xl px-4 py-3 transition ${pathname === "/browse"
-                                    ? "bg-blue-500/10 text-blue-400"
-                                    : "text-slate-300 hover:bg-white/5"
+                                ? "bg-blue-500/10 text-blue-400"
+                                : "text-slate-300 hover:bg-white/5"
                                 }`}
                         >
                             Browse Books
@@ -272,8 +277,8 @@ const Navbar = () => {
                             href="/about"
                             onClick={() => setIsOpen(false)}
                             className={`block rounded-xl px-4 py-3 transition ${pathname === "/about"
-                                    ? "bg-blue-500/10 text-blue-400"
-                                    : "text-slate-300 hover:bg-white/5"
+                                ? "bg-blue-500/10 text-blue-400"
+                                : "text-slate-300 hover:bg-white/5"
                                 }`}
                         >
                             About
@@ -284,7 +289,7 @@ const Navbar = () => {
 
                         {/* USER LOGIC */}
                         {!user && (
-                        
+
                             <>
                                 <Link
                                     href="/signin"
