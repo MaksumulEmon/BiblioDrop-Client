@@ -128,7 +128,7 @@ const Signup = () => {
         setGoogleLoading(true);
 
         try {
-            await authClient.signUp.social({
+            await authClient.signIn.social({
                 provider: "google",
             });
         } catch (error) {
