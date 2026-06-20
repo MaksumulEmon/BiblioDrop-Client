@@ -5,13 +5,16 @@
 import { addBook } from "@/lib/action/addbook";
 import { authClient } from "@/lib/auth-client";
 import { imageUpload } from "@/lib/imgUpload";
+import { useRouter } from "next/navigation";
+
+
 
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 
 export default function AddBook() {
-
+    const router = useRouter();
 
     const { data: session } = authClient.useSession();
     const user = session?.user;
@@ -19,6 +22,7 @@ export default function AddBook() {
     const [loading, setLoading] = useState(false);
 
     const [image, setImage] = useState(null);
+
 
     const [formData, setFormData] = useState({
         title: "",
@@ -69,7 +73,9 @@ export default function AddBook() {
 
             console.log(result);
 
-            toast.success("Book Added Successfully");
+            toast.success("Book Submit successfully wait for Approval");
+
+            router.push("/dashboard/librarian/manageInventory");
 
         } catch (error) {
             console.error(error);
@@ -260,8 +266,8 @@ export default function AddBook() {
                     >
                         {
                             loading
-                                ? "Adding Book..."
-                                : "Add Book"
+                                ? "Submit..."
+                                : "Submit for Approval"
                         }
                     </button>
 
