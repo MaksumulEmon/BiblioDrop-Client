@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { Moon, Menu, X } from "lucide-react";
 import { Avatar, Button, Dropdown, Label } from "@heroui/react";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import { authClient } from "@/lib/auth-client";
 import { BiLogOut } from "react-icons/bi";
 import { MdDashboard } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
+
 
 const Navbar = () => {
     // const pathname = usePathname();
@@ -22,6 +23,7 @@ const Navbar = () => {
 
     const handleSignOut = async () => {
         await authClient.signOut();
+        redirect("/")
     };
 
     const pathname = usePathname()
