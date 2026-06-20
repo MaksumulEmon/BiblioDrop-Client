@@ -6,12 +6,7 @@ import React from 'react';
 
 const AllBooks = async () => {
 
-    // const res = await fetch(
-    //     "http://localhost:5000/librarian/books",
-    //     {
-    //         cache: "no-store"
-    //     }
-    // );
+
         const books = await getBooks();
 
 

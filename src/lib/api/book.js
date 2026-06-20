@@ -27,3 +27,22 @@ export const getBooks = async () => {
     return res.json();
 };
 
+
+// Edit Modal
+export const updateBook = async (id, updatedBook) => {
+    const res = await fetch(
+        `${baseUrl}/librarian/${id}`,
+        {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedBook),
+        }
+    );
+
+    return res.json();
+};
+
+
+//             );

@@ -1,4 +1,5 @@
 
+import { EditModal } from "@/Components/EditModal";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Image from "next/image";
@@ -89,13 +90,13 @@ const DetailsPage = async ({ params }) => {
                             {
                                 isOwner ? (
                                     <div className="grid md:grid-cols-3 gap-3">
-                                        <button className="bg-blue-600 hover:bg-blue-700 py-4 rounded-xl font-semibold transition">
-                                            Edit Book
-                                        </button>
 
+                                         <EditModal book={book} />
+                                      
+{/* 
                                         <button className="bg-amber-500 hover:bg-amber-600 text-black py-4 rounded-xl font-semibold transition">
                                             Unpublish
-                                        </button>
+                                        </button> */}
 
                                         <button className="bg-red-600 hover:bg-red-700 py-4 rounded-xl font-semibold transition">
                                             Delete Book
