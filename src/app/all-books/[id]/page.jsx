@@ -107,6 +107,7 @@ const DetailsPage = async ({ params }) => {
                                         </button> */}
 
                                             <DeleteAlert book={book} />
+
                                         </div>
                                     </div>
                                 ) : (
