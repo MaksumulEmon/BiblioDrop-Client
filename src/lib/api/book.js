@@ -7,7 +7,7 @@ export const addBook = async (books) => {
         {
             method: 'POST',
             headers: {
-                'Context-Type': 'application/json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(books)
         }
@@ -16,3 +16,13 @@ export const addBook = async (books) => {
     return data;
 
 }
+
+
+// ALl book show
+export const getBooks = async () => {
+    const res = await fetch(`${baseUrl}/librarian/books`, {
+        cache: "no-store",
+    });
+
+    return res.json();
+};
