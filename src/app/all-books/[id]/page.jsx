@@ -37,13 +37,14 @@ const DetailsPage = async ({ params }) => {
                     {/* Book Cover */}
                     <div className="lg:col-span-1">
                         <div className="bg-slate-900 rounded-3xl border border-slate-800 p-6">
-                            <Image
-                                src={book?.image}
-                                alt={book?.title}
-                                width={50}
-                                height={50}
-                                className="w-full rounded-2xl object-cover"
-                            />
+                            <div className="relative w-full h-100 overflow-hidden rounded-2xl">
+                                <Image
+                                    src={book?.image}
+                                    alt={book?.title}
+                                    fill
+                                    className="object-cover"
+                                />
+                            </div>
                         </div>
                     </div>
 

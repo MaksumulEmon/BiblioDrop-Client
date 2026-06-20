@@ -52,20 +52,12 @@ export function EditModal({ book }) {
             <Modal.Trigger>
 
 
-                {/* <button className="flex-1 flex items-center justify-center gap-1.5 border border-gray-200 hover:bg-gray-300 cursor-pointer text-gray-700 text-sm font-medium py-2.5 rounded-xl transition-colors duration-200 px-10">
-                    <Pencil className='w-4 h-4' />
-                    Edit
-                </button> */}
-
                 <button className="flex items-center gap-2 px-6 py-3 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-700 transition shadow-lg">
                     <Pencil size={18} />
                     Edit Book
                 </button>
-                {/* 
-                <button className="bg-blue-600 hover:bg-blue-700 py-4 rounded-xl font-semibold transition">
-                    Edit Book
-                </button> */}
 
+            
 
             </Modal.Trigger>
 

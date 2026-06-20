@@ -64,3 +64,15 @@ export const deleteBook = async (id) => {
 
 
 
+// status update
+export const updateBookStatus = async (id, status) => {
+    const res = await fetch(`${baseUrl}/librarian/book/status/${id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status }),
+    });
+
+    return res.json();
+};
