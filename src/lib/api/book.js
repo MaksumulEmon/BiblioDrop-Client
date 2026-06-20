@@ -45,4 +45,19 @@ export const updateBook = async (id, updatedBook) => {
 };
 
 
-//             );
+
+
+// Delete Book
+export const deleteBook = async (id) => {
+    const res = await fetch(
+        `${baseUrl}/librarian/${id}`,
+        {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+    );
+
+    return res.json();
+};

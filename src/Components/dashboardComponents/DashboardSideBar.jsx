@@ -10,6 +10,7 @@ import { redirect } from "next/navigation";
 import {
     FaBuilding,
     FaCalendarAlt,
+    FaCalendarMinus,
     FaHistory,
     FaHome,
     FaPlus,
@@ -20,6 +21,7 @@ import {
     FaUserShield,
 } from "react-icons/fa";
 import { Avatar } from "@heroui/react";
+import { MdOutlineAddCircleOutline } from "react-icons/md";
 
 const DashboardSideBar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -75,7 +77,7 @@ const DashboardSideBar = () => {
         {
             key: "addBook",
             label: "Add Book",
-            icon: FaTicketAlt,
+            icon: MdOutlineAddCircleOutline ,
             href: "/dashboard/librarian/addbook",
         },
         {
@@ -87,7 +89,7 @@ const DashboardSideBar = () => {
         {
             key: "manageDeliveries",
             label: "Manage Deliveries",
-            icon: FaHistory,
+            icon: FaCalendarMinus,
             href: "/dashboard/attendee/payments",
         },
     ];

@@ -1,4 +1,5 @@
 
+import { DeleteAlert } from "@/Components/DeleteAlert";
 import { EditModal } from "@/Components/EditModal";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -16,13 +17,15 @@ const DetailsPage = async ({ params }) => {
 
     const book = await res.json();
 
+    console.log(book);
 
     const session = await auth.api.getSession({
         headers: await headers()
     });
 
 
-    const isOwner = book.userId === session?.user?.id;
+
+    const isOwner = book?.userId === session?.user?.id;
 
 
     return (
@@ -35,8 +38,8 @@ const DetailsPage = async ({ params }) => {
                     <div className="lg:col-span-1">
                         <div className="bg-slate-900 rounded-3xl border border-slate-800 p-6">
                             <Image
-                                src={book.image}
-                                alt={book.title}
+                                src={book?.image}
+                                alt={book?.title}
                                 width={50}
                                 height={50}
                                 className="w-full rounded-2xl object-cover"
@@ -52,28 +55,28 @@ const DetailsPage = async ({ params }) => {
                             <div className="flex flex-wrap gap-3 mb-5">
 
                                 <span className="px-4 py-1 rounded-full bg-violet-600 text-sm">
-                                    {book.category}
+                                    {book?.category}
                                 </span>
 
                                 <span
-                                    className={`px-4 py-1 rounded-full text-sm ${book.status === "approved"
+                                    className={`px-4 py-1 rounded-full text-sm ${book?.status === "approved"
                                         ? "bg-green-500"
-                                        : book.status === "rejected"
+                                        : book?.status === "rejected"
                                             ? "bg-red-500"
                                             : "bg-yellow-500 text-black"
                                         }`}
                                 >
-                                    {book.status}
+                                    {book?.status}
                                 </span>
 
                             </div>
 
                             <h1 className="text-5xl font-bold mb-2">
-                                {book.title}
+                                {book?.title}
                             </h1>
 
                             <p className="text-slate-400 text-lg mb-8">
-                                By {book.author}
+                                By {book?.author}
                             </p>
 
                             <div className="bg-slate-800 rounded-2xl p-6 mb-8">
@@ -83,7 +86,7 @@ const DetailsPage = async ({ params }) => {
                                 </h3>
 
                                 <h2 className="text-4xl font-bold text-violet-400">
-                                    ${book.deliveryFee}
+                                    ${book?.deliveryFee}
                                 </h2>
 
                             </div>
@@ -91,16 +94,20 @@ const DetailsPage = async ({ params }) => {
                                 isOwner ? (
                                     <div className="grid md:grid-cols-3 gap-3">
 
-                                         <EditModal book={book} />
-                                      
-{/* 
+                                        <div className="flex gap-2 ">
+                                            <EditModal book={book} />
+
+                                            {/* 
                                         <button className="bg-amber-500 hover:bg-amber-600 text-black py-4 rounded-xl font-semibold transition">
                                             Unpublish
                                         </button> */}
 
-                                        <button className="bg-red-600 hover:bg-red-700 py-4 rounded-xl font-semibold transition">
+                                            {/* <button className="bg-red-600 hover:bg-red-700 py-4 rounded-xl font-semibold transition">
                                             Delete Book
-                                        </button>
+                                        </button> */}
+
+                                            <DeleteAlert book={book} />
+                                        </div>
                                     </div>
                                 ) : (
                                     <button className="w-full bg-violet-600 hover:bg-violet-700 transition py-4 rounded-xl font-semibold">
@@ -122,7 +129,7 @@ const DetailsPage = async ({ params }) => {
                     </h2>
 
                     <p className="text-slate-300 leading-8">
-                        {book.description}
+                        {book?.description}
                     </p>
 
                 </div>
@@ -139,21 +146,21 @@ const DetailsPage = async ({ params }) => {
                             <span className="text-slate-500">
                                 Name:
                             </span>{" "}
-                            {book.userName}
+                            {book?.userName}
                         </p>
 
                         <p>
                             <span className="text-slate-500">
                                 Email:
                             </span>{" "}
-                            {book.userEmail}
+                            {book?.userEmail}
                         </p>
 
                         <p>
                             <span className="text-slate-500">
                                 Published:
                             </span>{" "}
-                            {new Date(book.createdAt).toLocaleDateString()}
+                            {new Date(book?.createdAt).toLocaleDateString()}
                         </p>
                     </div>
 
