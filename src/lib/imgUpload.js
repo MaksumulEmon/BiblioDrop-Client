@@ -1,9 +1,11 @@
+
 export const imageUpload = async (image) => {
     const formData = new FormData();
     formData.append("image", image);
 
     const res = await fetch(
         `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_KEY}`,
+
         {
             method: "POST",
             body: formData,
@@ -14,3 +16,4 @@ export const imageUpload = async (image) => {
     // console.log(data)
     return data.data;
 };
+

@@ -82,7 +82,7 @@ const DashboardSideBar = () => {
             key: "manageInventory",
             label: "Manage Inventory",
             icon: FaHistory,
-            href: "/dashboard/attendee/payments",
+            href: "/dashboard/librarian/manageInventory",
         },
         {
             key: "manageDeliveries",
