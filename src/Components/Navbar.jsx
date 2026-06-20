@@ -263,7 +263,7 @@ const Navbar = () => {
                         </Link>
 
                         <Link
-                            href="/browse"
+                            href="/all-books"
                             onClick={() => setIsOpen(false)}
                             className={`block rounded-xl px-4 py-3 transition ${pathname === "/browse"
                                 ? "bg-blue-500/10 text-blue-400"
