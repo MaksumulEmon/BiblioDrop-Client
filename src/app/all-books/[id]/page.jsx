@@ -114,9 +114,15 @@ const DetailsPage = async ({ params }) => {
                                     </div>
                                 ) : (
                                     session?.user ? (
-                                        <button className="w-full bg-violet-600 hover:bg-violet-700 transition py-4 rounded-xl font-semibold">
-                                            Request Delivery
-                                        </button>
+                                        <form action={'/api/payment'} method="POST">
+
+                                            <input type="hidden" name="price" value={book.deliveryFee} />
+                                            <input type="hidden" name="title" value={book.title} />
+                                            <input type="hidden" name="productId" value={book._id} />
+                                            <button type="submit" className="w-full bg-violet-600 hover:bg-violet-700 transition py-4 rounded-xl font-semibold">
+                                                Request Delivery
+                                            </button>
+                                        </form>
                                     ) : (
                                         <Link
                                             href="/signin"
