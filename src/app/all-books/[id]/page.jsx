@@ -4,6 +4,7 @@ import { EditModal } from "@/Components/EditModal";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Image from "next/image";
+import Link from "next/link";
 
 const DetailsPage = async ({ params }) => {
     const { id } = await params;
@@ -112,9 +113,18 @@ const DetailsPage = async ({ params }) => {
                                         </div>
                                     </div>
                                 ) : (
-                                    <button className="w-full bg-violet-600 hover:bg-violet-700 transition py-4 rounded-xl font-semibold">
-                                        Request Delivery
-                                    </button>
+                                    session?.user ? (
+                                        <button className="w-full bg-violet-600 hover:bg-violet-700 transition py-4 rounded-xl font-semibold">
+                                            Request Delivery
+                                        </button>
+                                    ) : (
+                                        <Link
+                                            href="/signin"
+                                            className="w-full block text-center bg-violet-600 hover:bg-violet-700 transition py-4 rounded-xl font-semibold"
+                                        >
+                                            First Login Please
+                                        </Link>
+                                    )
                                 )
                             }
                         </div>
