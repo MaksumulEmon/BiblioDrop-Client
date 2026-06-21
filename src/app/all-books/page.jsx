@@ -1,19 +1,19 @@
 
 
 import Bookcard from '@/Components/Bookcard';
+import BookCardSkeleton from '@/Components/BookCardSkeleton';
 import { getBooks } from '@/lib/api/book';
 import React from 'react';
 
 const AllBooks = async () => {
 
 
-        const books = await getBooks();
+    const books = await getBooks();
 
 
-  
 
     return (
-        <div  className='max-w-7xl mx-auto'>
+        <div className='max-w-7xl mx-auto'>
 
             <h1 className="text-3xl font-bold mb-8">
                 All Books
@@ -27,6 +27,8 @@ const AllBooks = async () => {
                         book={book}
                     />
                 ))}
+
+        
 
             </div>
 
