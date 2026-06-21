@@ -2,7 +2,7 @@
 
 "use client"
 
-import { addBook } from "@/lib/action/addbook";
+import { addBook } from "@/lib/api/book";
 import { authClient } from "@/lib/auth-client";
 import { imageUpload } from "@/lib/imgUpload";
 import { useRouter } from "next/navigation";

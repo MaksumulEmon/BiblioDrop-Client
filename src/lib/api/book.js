@@ -1,13 +1,19 @@
+import { authClient } from "../auth-client";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const addBook = async (books) => {
+
+    const { data: token } = await authClient.token()
+    console.log({token})
+
     const res = await fetch(
-        `${baseUrl}/librarian/books`,
+        `${baseUrl}/librarian/books?token=${token.token}`,
         {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${token.token}`
             },
             body: JSON.stringify(books)
         }
