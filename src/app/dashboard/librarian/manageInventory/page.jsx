@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { Edit, Trash, Eye, EyeOff } from "lucide-react";
 import { deleteBook, updateBookStatus } from "@/lib/api/book";
 import { EditModal } from "@/Components/EditModal";
+import { EditModal2 } from "@/Components/EditModal2";
 
 
 export default function InventoryTable({ userId }) {
@@ -94,16 +95,8 @@ export default function InventoryTable({ userId }) {
 
                                 <td className="flex gap-2 p-3">
 
-                                    {/* Edit */}
-                                    {/* <button
-                                        onClick={() => handleUpdate(book._id)}
-                                        className="p-2 bg-blue-600 rounded-lg">
-                                        <Edit size={16} />
-                                    </button> */}
-
                                  
-
-                                    <EditModal book={book} />
+                                    <EditModal2 book={book} />
 
                                     {/* Delete */}
                                     <button
