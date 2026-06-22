@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 const DetailsPage = async ({ params }) => {
     const { id } = await params;
@@ -24,9 +25,12 @@ const DetailsPage = async ({ params }) => {
         headers: await headers()
     });
 
-
-
     const isOwner = book?.userId === session?.user?.id;
+    const isAdmin = session?.user?.role === "admin";
+
+    if (!book || (book.status !== "published" && !isOwner && !isAdmin)) {
+        return notFound();
+    }
 
 
     return (

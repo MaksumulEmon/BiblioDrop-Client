@@ -114,23 +114,24 @@ const DashboardSideBar = () => {
             href: "/dashboard/admin",
         },
         {
-            key: "users",
-            label: "Users",
-            icon: FaUsers,
-            href: "/dashboard/admin/users",
-        },
-        {
-            key: "bookApprovals",
-            label: "Book Approvals",
-            icon: FaCalendarAlt,
-            href: "/dashboard/admin/book-approvals",
-        },
-        {
             key: "books",
-            label: "Books System",
+            label: "Books Approval",
             icon: FaBookOpen,
             href: "/dashboard/admin/books",
         },
+        {
+            key: "users",
+            label: "Manage User",
+            icon: FaUsers,
+            href: "/dashboard/admin/users",
+        },
+        // {
+        //     key: "bookApprovals",
+        //     label: "Book Approvals",
+        //     icon: FaCalendarAlt,
+        //     href: "/dashboard/admin/book-approvals",
+        // },
+
         {
             key: "transactions",
             label: "Transactions",

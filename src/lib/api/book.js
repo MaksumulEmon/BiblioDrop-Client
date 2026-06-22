@@ -37,7 +37,7 @@ export const addBook = async (books) => {
 
 // ALl book show
 export const getBooks = async () => {
-    const res = await fetch(`${baseUrl}/librarian/books`, {
+    const res = await fetch(`${baseUrl}/books`, {
         cache: "no-store",
     });
 
