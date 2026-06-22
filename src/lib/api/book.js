@@ -3,25 +3,36 @@ import { authClient } from "../auth-client";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const addBook = async (books) => {
+    try {
+        const { data } = await authClient.token();
 
-    const { data: token } = await authClient.token()
-    console.log({token})
-
-    const res = await fetch(
-        `${baseUrl}/librarian/books?token=${token.token}`,
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                authorization: `Bearer ${token.token}`
-            },
-            body: JSON.stringify(books)
+        if (!data?.token) {
+            throw new Error("No token found");
         }
-    );
-    const data = await res.json()
-    return data;
 
-}
+        const res = await fetch(
+            `${baseUrl}/api/books`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${data.token}`,
+                },
+                body: JSON.stringify(books),
+            }
+        );
+
+        if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.error || "Failed to add book");
+        }
+
+        return await res.json();
+    } catch (error) {
+        console.error("Add Book Error:", error);
+        throw error;
+    }
+};
 
 
 // ALl book show

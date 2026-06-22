@@ -124,7 +124,7 @@ const Navbar = () => {
                                             <Dropdown.Item id="new-file" textValue="New file">
                                                 <Link
                                                     className="flex items-center gap-2"
-                                                    href={`/dashboard/${user?.role}/overview`}
+                                                    href={user?.role === "reader" ? "/dashboard/user" : user?.role === "librarian" ? "/dashboard/librarian" : user?.role === "admin" ? "/dashboard/admin" : "/"}
                                                 >
                                                     <MdDashboard />
                                                     <Label>Dashboard</Label>
@@ -213,7 +213,7 @@ const Navbar = () => {
                                         <Dropdown.Item id="new-file" textValue="New file">
                                             <Link
                                                 className="flex items-center gap-2"
-                                                href={`/dashboard/${user?.role}/overview`}
+                                                href={user?.role === "reader" ? "/dashboard/user" : user?.role === "librarian" ? "/dashboard/librarian" : user?.role === "admin" ? "/dashboard/admin" : "/"}
                                             >
                                                 <MdDashboard />
                                                 <Label>Dashboard</Label>

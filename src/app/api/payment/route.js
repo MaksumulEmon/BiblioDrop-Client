@@ -40,6 +40,9 @@ export async function POST(request) {
                 title,
                 productId,
             },
+            shipping_address_collection: {
+                allowed_countries: ["US", "CA", "GB", "BD", "IN"],
+            },
             mode: "payment",
             success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
         });
