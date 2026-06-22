@@ -14,10 +14,25 @@ const Bookcard = ({ book }) => {
     return (
         <Link href={`/all-books/${book._id}`}>
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -8, scale: 1.02 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
+                initial={{
+                    opacity: 0,
+                    scale: 0.95,
+                    filter: "blur(12px)",
+                }}
+                whileInView={{
+                    opacity: 1,
+                    scale: 1,
+                    filter: "blur(0px)",
+                }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{
+                    duration: 0.9,
+                    ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{
+                    y: -10,
+                    scale: 1.02,
+                }}
                 className="group bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-3xl overflow-hidden cursor-pointer hover:border-violet-500/40 hover:shadow-[0_20px_50px_rgba(124,58,237,0.18)]"
             >
                 <div className="relative overflow-hidden">
