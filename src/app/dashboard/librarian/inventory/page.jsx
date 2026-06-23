@@ -7,6 +7,7 @@ import { Trash2, EyeOff, Loader2, BookOpen } from "lucide-react";
 import { deleteBook, updateBookStatus } from "@/lib/api/book";
 import { EditModal2 } from "@/Components/EditModal2";
 import { useRouter } from "next/navigation";
+import { AlertDialog, Button, } from "@heroui/react";
 
 export default function LibrarianInventory() {
     const router = useRouter();
@@ -15,6 +16,8 @@ export default function LibrarianInventory() {
 
     const [books, setBooks] = useState([]);
     const [loadingData, setLoadingData] = useState(true);
+    const [selectedBookId, setSelectedBookId] = useState(null);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     const loadBooks = async () => {
         if (!user) return;
@@ -43,15 +46,25 @@ export default function LibrarianInventory() {
         loadBooks();
     }, [user, isPending, router]);
 
-    const handleDelete = async (id) => {
-        if (!confirm("Are you sure you want to delete this book?")) return;
+    const handleDelete = async () => {
+        if (!selectedBookId) return;
 
         try {
-            await deleteBook(id);
+            setIsDeleting(true);
+
+            await deleteBook(selectedBookId);
+
             toast.success("Book deleted successfully");
-            setBooks(prev => prev.filter(b => b._id !== id));
+
+            setBooks((prev) =>
+                prev.filter((b) => b._id !== selectedBookId)
+            );
+
+            setSelectedBookId(null);
         } catch (err) {
             toast.error("Failed to delete book");
+        } finally {
+            setIsDeleting(false);
         }
     };
 
@@ -127,9 +140,9 @@ export default function LibrarianInventory() {
                                     <tr key={book._id} className="text-slate-300 hover:bg-white/5 transition-colors">
                                         <td className="py-4 font-semibold text-white flex items-center gap-3">
                                             {book.image && (
-                                                <img 
-                                                    src={book.image} 
-                                                    alt={book.title} 
+                                                <img
+                                                    src={book.image}
+                                                    alt={book.title}
                                                     className="w-10 h-14 object-cover rounded-lg border border-white/10"
                                                 />
                                             )}
@@ -148,9 +161,9 @@ export default function LibrarianInventory() {
                                         <td className="py-4 text-right">
                                             <div className="flex gap-2 justify-end items-center">
                                                 <EditModal2 book={book} />
-                                                
+
                                                 <button
-                                                    onClick={() => handleDelete(book._id)}
+                                                    onClick={() => setSelectedBookId(book._id)}
                                                     className="p-2.5 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 rounded-xl text-red-400 hover:text-red-300 transition cursor-pointer"
                                                 >
                                                     <Trash2 size={16} />
@@ -174,6 +187,55 @@ export default function LibrarianInventory() {
                     </div>
                 )}
             </div>
+
+
+
+
+            <AlertDialog
+                isOpen={!!selectedBookId}
+                onOpenChange={(open) => {
+                    if (!open) setSelectedBookId(null);
+                }}
+            >
+                <AlertDialog.Backdrop>
+                    <AlertDialog.Container>
+                        <AlertDialog.Dialog className="max-w-md border border-white/10 bg-slate-900 text-white">
+
+                            <AlertDialog.Header>
+                                <AlertDialog.Icon status="danger" />
+                                <AlertDialog.Heading>
+                                    Delete Book?
+                                </AlertDialog.Heading>
+                            </AlertDialog.Header>
+
+                            <AlertDialog.Body>
+                                <p className="text-slate-400">
+                                    This action will permanently remove this book
+                                    from your inventory and cannot be undone.
+                                </p>
+                            </AlertDialog.Body>
+
+                            <AlertDialog.Footer>
+                                <Button
+                                    variant="bordered"
+                                    onPress={() => setSelectedBookId(null)}
+                                >
+                                    Cancel
+                                </Button>
+
+                                <Button
+                                    color="danger"
+                                    isLoading={isDeleting}
+                                    onPress={handleDelete}
+                                >
+                                    Delete Book
+                                </Button>
+                            </AlertDialog.Footer>
+
+                        </AlertDialog.Dialog>
+                    </AlertDialog.Container>
+                </AlertDialog.Backdrop>
+            </AlertDialog>
         </div>
     );
 }
