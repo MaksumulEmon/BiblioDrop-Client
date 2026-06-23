@@ -5,10 +5,11 @@ import BookCardSkeleton from '@/Components/BookCardSkeleton';
 import { getBooks } from '@/lib/api/book';
 import React from 'react';
 
-const AllBooks = async () => {
+const AllBooks = async ({ searchParams }) => {
+    const  params  = await searchParams;
+    console.log(params)
 
-
-    const books = await getBooks();
+    const books = await getBooks(params.page);
 
 
 

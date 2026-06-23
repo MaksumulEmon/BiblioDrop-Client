@@ -36,8 +36,11 @@ export const addBook = async (books) => {
 
 
 // ALl book show
-export const getBooks = async () => {
-    const res = await fetch(`${baseUrl}/books`, {
+export const getBooks = async (page) => {
+    if (!page) {
+        page = 1;
+    }
+    const res = await fetch(`${baseUrl}/books?page=${page}`, {
         cache: "no-store",
     });
 
