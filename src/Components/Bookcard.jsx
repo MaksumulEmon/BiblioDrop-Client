@@ -1,9 +1,11 @@
-"use client"
+
+"use client";
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
 const Bookcard = ({ book }) => {
+
     const statusColor =
         book.status === "Approved"
             ? "bg-emerald-500/90"
@@ -16,65 +18,66 @@ const Bookcard = ({ book }) => {
             <motion.div
                 initial={{
                     opacity: 0,
+                    x: -60,
                     scale: 0.95,
-                    filter: "blur(12px)",
+                    filter: "blur(10px)",
                 }}
                 whileInView={{
                     opacity: 1,
+                    x: 0,
                     scale: 1,
                     filter: "blur(0px)",
                 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{
-                    duration: 0.9,
+                    duration: 0.8,
                     ease: [0.22, 1, 0.36, 1],
                 }}
                 whileHover={{
-                    y: -10,
-                    scale: 1.02,
+                    y: -12,
+                    scale: 1.03,
                 }}
-                className="group bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-3xl overflow-hidden cursor-pointer hover:border-violet-500/40 hover:shadow-[0_20px_50px_rgba(124,58,237,0.18)]"
+                className="w-full group bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-3xl overflow-hidden cursor-pointer hover:border-violet-500/40 hover:shadow-[0_20px_60px_rgba(124,58,237,0.2)]"
             >
+
                 <div className="relative overflow-hidden">
+
                     <motion.img
                         src={book.image}
                         alt={book.title}
-                        className="w-full h-64 object-cover"
-                        whileHover={{ scale: 1.1 }}
+                        className="w-full h-44 object-cover"   // 🔥 was h-64 → now h-44
+                        whileHover={{ scale: 1.08 }}
                         transition={{ duration: 0.6 }}
                     />
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
 
-                    {/* Category */}
-                    <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-xs font-medium text-white shadow-lg">
+                    <span className="absolute top-3 left-3 px-2 py-1 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-[10px] font-medium text-white shadow">
                         {book.category}
                     </span>
 
-                    {/* Status */}
-                    <span
-                        className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold text-white ${statusColor}`}
-                    >
+                    <span className={`absolute top-3 right-3 px-2 py-1 rounded-full text-[10px] font-semibold text-white ${statusColor}`}>
                         {book.status}
                     </span>
+
                 </div>
 
-                <div className="p-5">
+                <div className="p-4">
 
-                    <div className="flex justify-between">
-                        <h2 className="text-xl font-bold text-white line-clamp-1 group-hover:text-violet-400 transition">
-                            {book.title}
-                        </h2>
+                    <h2 className="text-lg font-bold text-white line-clamp-1 group-hover:text-violet-400 transition">
+                        {book.title}
+                    </h2>
 
-                        <p className="text-slate-400 mt-2 text-sm">
-                            Author: {book.author}
-                        </p>
-                    </div>
+                    <p className="text-slate-400 text-xs mt-1">
+                        Author: {book.author}
+                    </p>
 
-                    <p className="text-slate-500 text-sm mt-3 line-clamp-2">
+                    <p className="text-slate-500 text-xs mt-2 line-clamp-2">
                         {book.description}
                     </p>
+
                 </div>
+
             </motion.div>
         </Link>
     );

@@ -14,12 +14,11 @@ const AllBooks = async () => {
 
     return (
         <div className='max-w-7xl mx-auto'>
-
-            <h1 className="text-3xl font-bold mb-8">
-                All Books
+            <h1 className="text-3xl mx-5 md:mx-0 pt-3 font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-violet-500 to-fuchsia-200 drop-shadow-lg">
+                Explore All Books
             </h1>
 
-            <div className="grid mx-5 md:mx-0 md:grid-cols-2  lg:grid-cols-3  gap-6">
+            <div className="grid mx-5 md:mx-0  md:grid-cols-2  lg:grid-cols-4  gap-6">
 
                 {books.map((book) => (
                     <Bookcard
@@ -28,7 +27,7 @@ const AllBooks = async () => {
                     />
                 ))}
 
-        
+
 
             </div>
 

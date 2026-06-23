@@ -1,27 +1,15 @@
+
 import { Skeleton } from "@heroui/react";
 
 const BookCardSkeleton = () => {
     return (
-        <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-3xl p-5">
-
-            <Skeleton className="rounded-2xl">
-                <div className="h-64 w-full rounded-2xl bg-[#262626]" />
-            </Skeleton>
-
-            <div className="mt-5 space-y-4">
-
-                <Skeleton className="rounded-xl">
-                    <div className="h-6 w-3/4 bg-[#262626]" />
-                </Skeleton>
-
-                <Skeleton className="rounded-xl">
-                    <div className="h-4 w-1/2 bg-[#262626]" />
-                </Skeleton>
-
-                <Skeleton className="rounded-xl">
-                    <div className="h-10 w-full bg-[#262626]" />
-                </Skeleton>
-
+        <div className="shadow-panel w-[250px] space-y-5 rounded-lg bg-transparent p-4">
+            <Skeleton className="h-32 rounded-lg" />
+            <div className="space-y-3">
+                <Skeleton className="h-3 w-3/5 rounded-lg" />
+                <Skeleton className="h-3 w-4/5 rounded-lg" />
+                <Skeleton className="h-3 w-2/5 rounded-lg" />
+                <Skeleton className="h-3 w-2/5 rounded-lg" />
             </div>
         </div>
     );
