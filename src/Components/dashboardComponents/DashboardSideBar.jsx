@@ -125,12 +125,12 @@ const DashboardSideBar = () => {
             icon: FaUsers,
             href: "/dashboard/admin/users",
         },
-        // {
-        //     key: "bookApprovals",
-        //     label: "Book Approvals",
-        //     icon: FaCalendarAlt,
-        //     href: "/dashboard/admin/book-approvals",
-        // },
+        {
+            key: "bookApprovals",
+            label: "Manage Book",
+            icon: FaCalendarAlt,
+            href: "/dashboard/admin/book-approvals",
+        },
 
         {
             key: "transactions",
@@ -138,12 +138,12 @@ const DashboardSideBar = () => {
             icon: FaTicketAlt,
             href: "/dashboard/admin/transactions",
         },
-        {
-            key: "analytics",
-            label: "Analytics",
-            icon: FaChartPie,
-            href: "/dashboard/admin/analytics",
-        },
+        // {
+        //     key: "analytics",
+        //     label: "Analytics",
+        //     icon: FaChartPie,
+        //     href: "/dashboard/admin/analytics",
+        // },
     ];
 
     const role = user?.role;
@@ -211,7 +211,22 @@ const DashboardSideBar = () => {
             )}
 
             {/* Sidebar */}
+
+
             <aside
+                className={`
+        sticky top-0
+        w-64 h-screen
+        border-r border-white/10
+        bg-[#121212]
+        transition-transform duration-300 ease-in-out
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        lg:translate-x-0
+    `}
+            >
+
+
+                {/* <aside
                 className={`
                     fixed lg:static top-0 left-0 z-50
                     w-64 h-screen border-r border-white/10 bg-[#121212]
@@ -219,7 +234,7 @@ const DashboardSideBar = () => {
                     ${isOpen ? "translate-x-0" : "-translate-x-full"}
                     lg:translate-x-0
                 `}
-            >
+            > */}
                 <div className="h-full flex flex-col bg-[#111827]">
 
                     {/* Mobile Close */}

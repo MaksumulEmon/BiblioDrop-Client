@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { BookOpen, CheckCircle, Clock, DollarSign, Truck, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import LibrarianOverviewChart from "@/Components/LibrarianOverviewChart";
 
 export default function LibrarianOverview() {
     const router = useRouter();
@@ -157,6 +158,8 @@ export default function LibrarianOverview() {
                     );
                 })}
             </div>
+
+            <LibrarianOverviewChart stats={stats} />
         </div>
     );
 }
