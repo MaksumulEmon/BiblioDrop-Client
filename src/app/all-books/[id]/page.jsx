@@ -97,7 +97,7 @@ const DetailsPage = async ({ params }) => {
 
                             </div>
 
-                            
+
                             {
                                 isOwner ? (
                                     <div className="grid md:grid-cols-3 gap-3">
@@ -105,7 +105,7 @@ const DetailsPage = async ({ params }) => {
                                         <div className="flex gap-2 ">
                                             <EditModal book={book} />
 
-                                            {/* 
+                                            {/*                                             
                                         <button className="bg-amber-500 hover:bg-amber-600 text-black py-4 rounded-xl font-semibold transition">
                                             Unpublish
                                         </button> */}
@@ -134,7 +134,7 @@ const DetailsPage = async ({ params }) => {
                                             href="/signin"
                                             className="w-full block text-center bg-violet-600 hover:bg-violet-700 transition py-4 rounded-xl font-semibold"
                                         >
-                                            First Login Please
+                                             Login to Request Delivery
                                         </Link>
                                     )
                                 )

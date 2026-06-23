@@ -97,8 +97,19 @@ const Signin = () => {
             });
 
             if (data) {
+                // toast.success("Login successfully");
+                // router.push("/");
+
+                const role = data.user.role; 
                 toast.success("Login successfully");
-                router.push("/");
+
+                if (role === "admin") {
+                    router.push("/dashboard/admin");
+                } else if (role === "librarian") {
+                    router.push("/dashboard/librarian");
+                } else {
+                    router.push("/");
+                }
             }
 
             if (error) {
