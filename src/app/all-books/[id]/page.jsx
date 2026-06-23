@@ -34,20 +34,20 @@ const DetailsPage = async ({ params }) => {
 
 
     return (
-        <div className="min-h-screen bg-slate-950 text-white py-10">
+        <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-950 to-black text-white py-12">
             <div className="max-w-7xl mx-auto px-4">
 
                 <div className="grid lg:grid-cols-3 gap-8">
 
                     {/* Book Cover */}
                     <div className="lg:col-span-1">
-                        <div className="bg-slate-900 rounded-3xl border border-slate-800 p-6">
+                        <div className="sticky top-24 overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 p-4">
                             <div className="relative w-full h-100 overflow-hidden rounded-2xl">
                                 <Image
                                     src={book?.image}
                                     alt={book?.title}
                                     fill
-                                    className="object-cover"
+                                    className="object-cover hover:scale-105 transition duration-700"
                                 />
                             </div>
                         </div>
@@ -76,8 +76,7 @@ const DetailsPage = async ({ params }) => {
                                 </span>
 
                             </div>
-
-                            <h1 className="text-5xl font-bold mb-2">
+                            <h1 className="text-4xl md:text-5xl font-bold leading-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
                                 {book?.title}
                             </h1>
 
@@ -85,7 +84,7 @@ const DetailsPage = async ({ params }) => {
                                 By {book?.author}
                             </p>
 
-                            <div className="bg-slate-800 rounded-2xl p-6 mb-8">
+                            <div className="mb-8 rounded-2xl border border-violet-500/20 bg-violet-500/5 p-6 backdrop-blur-sm">
 
                                 <h3 className="text-sm text-slate-400 mb-2">
                                     Delivery Fee
@@ -134,7 +133,7 @@ const DetailsPage = async ({ params }) => {
                                             href="/signin"
                                             className="w-full block text-center bg-violet-600 hover:bg-violet-700 transition py-4 rounded-xl font-semibold"
                                         >
-                                             Login to Request Delivery
+                                            Login to Request Delivery
                                         </Link>
                                     )
                                 )
@@ -146,7 +145,7 @@ const DetailsPage = async ({ params }) => {
                 </div>
 
                 {/* Description */}
-                <div className="bg-slate-900 rounded-3xl border border-slate-800 p-8 mt-8">
+                <div className="mt-8 rounded-3xl border border-slate-800 bg-slate-900/60 backdrop-blur-sm p-8">
 
                     <h2 className="text-2xl font-bold mb-5">
                         Description
@@ -162,7 +161,7 @@ const DetailsPage = async ({ params }) => {
                 <div className="bg-slate-900 rounded-3xl border border-slate-800 p-8 mt-8">
 
                     <h2 className="text-2xl font-bold mb-5">
-                        Added By
+                        Librarian By
                     </h2>
 
                     <div className="space-y-2">
@@ -173,12 +172,12 @@ const DetailsPage = async ({ params }) => {
                             {book?.userName}
                         </p>
 
-                        <p>
+                        {/* <p>
                             <span className="text-slate-500">
                                 Email:
                             </span>{" "}
                             {book?.userEmail}
-                        </p>
+                        </p> */}
 
                         <p>
                             <span className="text-slate-500">
