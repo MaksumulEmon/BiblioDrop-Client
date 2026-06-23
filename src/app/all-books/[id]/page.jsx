@@ -96,6 +96,8 @@ const DetailsPage = async ({ params }) => {
                                 </h2>
 
                             </div>
+
+                            
                             {
                                 isOwner ? (
                                     <div className="grid md:grid-cols-3 gap-3">

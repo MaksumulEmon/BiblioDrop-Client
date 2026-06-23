@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { BookOpen, Wallet, Truck, CheckCircle2, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import UserOverviewChart from "@/Components/UserOverviewChart";
 
 export default function UserOverview() {
     const router = useRouter();
@@ -139,6 +140,8 @@ export default function UserOverview() {
                     );
                 })}
             </div>
+
+            <UserOverviewChart stats={stats} />
         </div>
     );
 }
