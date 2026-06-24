@@ -58,7 +58,7 @@ const AllBooks = async ({ searchParams }) => {
                             name="search"
                             placeholder="Search books by title..."
                             defaultValue={params?.search || ""}
-                            className=" w-full h-11 md:h-12 px-4 rounded-xl md:rounded-2xl bg-slate-900 border border-slate-800 text-white text-sm md:text-base placeholder:text-slate-500 focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all"/>
+                            className=" w-full h-11 md:h-12 px-4 rounded-xl md:rounded-2xl bg-slate-900 border border-slate-800 text-white text-sm md:text-base placeholder:text-slate-500 focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all" />
 
                     </div>
 
@@ -116,15 +116,7 @@ const AllBooks = async ({ searchParams }) => {
 
             <div className="grid mx-5 md:mx-0  md:grid-cols-2  lg:grid-cols-4  gap-6">
 
-                {/* {books.data.map((book) => (
-                    <Bookcard
-                        key={book._id}
-                        bookData={book}
-                    />
-                ))} */}
-
-
-
+        
                 {
                     books?.data?.length === 0 ? (
                         <div className="col-span-full flex flex-col items-center justify-center py-24 text-center">
@@ -134,12 +126,12 @@ const AllBooks = async ({ searchParams }) => {
                             </div>
 
                             <h2 className="text-2xl font-bold text-white">
-                                No Books Found
+                                No Matching Books Found
                             </h2>
 
                             <p className="text-slate-400 mt-3 max-w-md">
-                                We couldn't find any books matching your search or filters.
-                                Try changing the book name or selecting a different category.
+                                No books match your current search or selected filters.
+                                Try adjusting your search criteria or clear all filters to explore available books.
                             </p>
 
                             <Link
@@ -159,7 +151,7 @@ const AllBooks = async ({ searchParams }) => {
                     duration-300
                 "
                             >
-                                Browse All Books
+                                Clear Filters
                             </Link>
 
                         </div>

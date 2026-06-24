@@ -10,6 +10,7 @@ import { authClient } from "@/lib/auth-client";
 import { BiLogOut } from "react-icons/bi";
 import { MdDashboard } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
+import toast from "react-hot-toast";
 
 
 const Navbar = () => {
@@ -23,6 +24,7 @@ const Navbar = () => {
 
     const handleSignOut = async () => {
         await authClient.signOut();
+        toast.error('Logout')
         redirect("/")
     };
 
