@@ -54,10 +54,11 @@ const AllBooks = async ({ searchParams }) => {
                         <Pagination.Item>
                             <Pagination.Previous
                                 isDisabled={page === 1}
-
                             >
-                                <Pagination.PreviousIcon />
-                                Prev
+                                <Link className='flex gap-2' href={`/all-books?page=${page - 1}`}>
+                                    <Pagination.PreviousIcon />
+                                    Prev
+                                </Link>
                             </Pagination.Previous>
                         </Pagination.Item>
                         {pages.map((p) => (
@@ -77,8 +78,10 @@ const AllBooks = async ({ searchParams }) => {
                                 isDisabled={page === totalPages}
 
                             >
-                                Next
-                                <Pagination.NextIcon />
+                                <Link className='flex gap-2' href={`/all-books?page=${page +1}`}>
+                                    <Pagination.NextIcon />
+                                    Next
+                                </Link>
                             </Pagination.Next>
                         </Pagination.Item>
                     </Pagination.Content>
