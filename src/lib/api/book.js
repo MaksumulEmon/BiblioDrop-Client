@@ -36,16 +36,49 @@ export const addBook = async (books) => {
 
 
 // ALl book show
-export const getBooks = async (page) => {
-    if (!page) {
-        page = 1;
-    }
-    const res = await fetch(`${baseUrl}/books?page=${page}`, {
-        cache: "no-store",
+
+
+export const getBooks = async ({
+    page = 1,
+    search = "",
+    category = "",
+    minFee = "",
+    maxFee = "",
+    availability = "",
+}) => {
+
+    const params = new URLSearchParams({
+        page,
+        search,
+        category,
+        minFee,
+        maxFee,
+        availability,
     });
+
+    const res = await fetch(
+        `${baseUrl}/books?${params.toString()}`,
+        {
+            cache: "no-store",
+        }
+    );
 
     return res.json();
 };
+
+
+
+
+// export const getBooks = async (page) => {
+//     if (!page) {
+//         page = 1;
+//     }
+//     const res = await fetch(`${baseUrl}/books?page=${page}`, {
+//         cache: "no-store",
+//     });
+
+//     return res.json();
+// };
 
 
 // Edit Modal

@@ -50,7 +50,7 @@ const Bookcard = ({ bookData }) => {
                         <motion.img
                             src={book.image}
                             alt={book.title}
-                            className="w-full h-44 object-cover"   // 🔥 was h-64 → now h-44
+                            className="w-full h-44 object-cover"  
                             whileHover={{ scale: 1.08 }}
                             transition={{ duration: 0.6 }}
                         />
