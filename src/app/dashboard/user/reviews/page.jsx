@@ -26,7 +26,7 @@ export default function UserReviews() {
             const { data: token } = await authClient.token();
             if (!token) return;
 
-            const res = await fetch("http://localhost:5000/api/reviews/user", {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/reviews/user`, {
                 headers: { Authorization: `Bearer ${token.token}` }
             });
             const data = await res.json();
@@ -68,7 +68,7 @@ export default function UserReviews() {
             const { data: token } = await authClient.token();
             if (!token) return;
 
-            const res = await fetch(`http://localhost:5000/api/reviews/${selectedReview._id}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/reviews/${selectedReview._id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -102,7 +102,7 @@ export default function UserReviews() {
             const { data: token } = await authClient.token();
             if (!token) return;
 
-            const res = await fetch(`http://localhost:5000/api/reviews/${id}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/reviews/${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token.token}`

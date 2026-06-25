@@ -17,7 +17,7 @@ export default function ManageInventory({ userId }) {
 
         setLoading(true);
 
-        fetch(`http://localhost:5000/librarian/my-books/${userId}`)
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/librarian/my-books/${userId}`)
             .then(res => res.json())
             .then(data => {
                 setBooks(data || []);

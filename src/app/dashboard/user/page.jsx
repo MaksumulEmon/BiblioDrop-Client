@@ -36,10 +36,10 @@ export default function UserOverview() {
                 if (!token) return;
 
                 const [paymentsRes, deliveriesRes] = await Promise.all([
-                    fetch("http://localhost:5000/api/payments/user", {
+                    fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/payments/user`, {
                         headers: { Authorization: `Bearer ${token.token}` }
                     }),
-                    fetch("http://localhost:5000/api/deliveries/user", {
+                    fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/deliveries/user`, {
                         headers: { Authorization: `Bearer ${token.token}` }
                     })
                 ]);

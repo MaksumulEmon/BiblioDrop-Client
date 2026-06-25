@@ -19,7 +19,7 @@ export default function AdminBookApprovals() {
             const { data: token } = await authClient.token();
             if (!token) return;
 
-            const res = await fetch("http://localhost:5000/api/books/pending", {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/books/pending`, {
                 headers: { Authorization: `Bearer ${token.token}` }
             });
             const data = await res.json();
@@ -45,7 +45,7 @@ export default function AdminBookApprovals() {
             const { data: token } = await authClient.token();
             if (!token) return;
 
-            const res = await fetch(`http://localhost:5000/api/books/approve/${id}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/books/approve/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",

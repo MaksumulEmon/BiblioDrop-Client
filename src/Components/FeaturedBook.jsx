@@ -4,7 +4,7 @@ import { ArrowRight, Building2 } from "lucide-react";
 import Bookcard from "./Bookcard";
 
 const FeaturedBook = async () => {
-    const res = await fetch(`http://localhost:5000/featured`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/featured`, {
         cache: "no-store",
     });
 

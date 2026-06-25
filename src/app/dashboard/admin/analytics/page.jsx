@@ -31,13 +31,13 @@ export default function AdminAnalytics() {
                 if (!token) return;
 
                 // Fetch admin stats (payments, users count, books count)
-                const statsRes = await fetch("http://localhost:5000/api/payments/admin", {
+                const statsRes = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/payments/admin`, {
                     headers: { Authorization: `Bearer ${token.token}` }
                 });
                 const statsData = await statsRes.json();
 
                 // Fetch all books for category distribution
-                const booksRes = await fetch("http://localhost:5000/admin/books", {
+                const booksRes = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/admin/books`, {
                     cache: "no-store"
                 });
                 const booksData = await booksRes.json();

@@ -27,7 +27,7 @@ export default async function Success({ searchParams }) {
 
         let confirmError = null;
         try {
-            const res = await fetch("http://localhost:5000/api/payments/confirm", {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/payments/confirm`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

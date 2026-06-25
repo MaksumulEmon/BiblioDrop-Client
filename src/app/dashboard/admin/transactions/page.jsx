@@ -25,7 +25,7 @@ export default function AdminTransactions() {
                 const { data: token } = await authClient.token();
                 if (!token) return;
 
-                const res = await fetch("http://localhost:5000/api/payments/admin", {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/payments/admin`, {
                     headers: { Authorization: `Bearer ${token.token}` }
                 });
                 const data = await res.json();

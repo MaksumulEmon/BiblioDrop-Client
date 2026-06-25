@@ -20,7 +20,7 @@ export default function AdminUsers() {
             const { data: token } = await authClient.token();
             if (!token) return;
 
-            const res = await fetch("http://localhost:5000/api/users", {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users`, {
                 headers: { Authorization: `Bearer ${token.token}` }
             });
             const data = await res.json();
@@ -46,7 +46,7 @@ export default function AdminUsers() {
             const { data: token } = await authClient.token();
             if (!token) return;
 
-            const res = await fetch(`http://localhost:5000/api/users/role/${userId}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/role/${userId}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -75,7 +75,7 @@ export default function AdminUsers() {
             const { data: token } = await authClient.token();
             if (!token) return;
 
-            const res = await fetch(`http://localhost:5000/api/users/block/${userId}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/block/${userId}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -105,7 +105,7 @@ export default function AdminUsers() {
             const { data: token } = await authClient.token();
             if (!token) return;
 
-            const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/${userId}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token.token}` }
             });

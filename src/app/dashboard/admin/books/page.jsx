@@ -17,7 +17,7 @@ export default function AdminBooksSystem() {
 
     const loadAllBooks = async () => {
         try {
-            const res = await fetch("http://localhost:5000/admin/books", {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/admin/books`, {
                 cache: "no-store"
             });
             const data = await res.json();
@@ -42,7 +42,7 @@ export default function AdminBooksSystem() {
         if (!confirm("Are you sure you want to delete this book? This will remove it permanently.")) return;
 
         try {
-            const res = await fetch(`http://localhost:5000/admin/book/${bookId}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/admin/book/${bookId}`, {
                 method: "DELETE"
             });
             if (res.ok) {

@@ -11,14 +11,14 @@ const DetailsPage = async ({ params }) => {
     const { id } = await params;
 
     const res = await fetch(
-        `http://localhost:5000/librarian/${id}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/librarian/${id}`,
         {
             cache: "no-store",
         }
     );
 
     const reviewRes = await fetch(
-        `http://localhost:5000/reviews/book/${id}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/reviews/book/${id}`,
         {
             cache: "no-store",
         }

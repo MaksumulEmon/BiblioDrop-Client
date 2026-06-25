@@ -1,6 +1,6 @@
 import { authClient } from "../auth-client";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export const addBook = async (books) => {
     try {

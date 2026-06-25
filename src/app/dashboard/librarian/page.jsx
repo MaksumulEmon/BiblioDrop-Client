@@ -37,10 +37,10 @@ export default function LibrarianOverview() {
                 if (!token) return;
 
                 const [booksRes, paymentsRes] = await Promise.all([
-                    fetch("http://localhost:5000/api/books/librarian", {
+                    fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/books/librarian`, {
                         headers: { Authorization: `Bearer ${token.token}` }
                     }),
-                    fetch("http://localhost:5000/api/payments/librarian", {
+                    fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/payments/librarian`, {
                         headers: { Authorization: `Bearer ${token.token}` }
                     })
                 ]);

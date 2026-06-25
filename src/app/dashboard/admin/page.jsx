@@ -53,7 +53,7 @@ export default function AdminOverview() {
                 const { data: token } = await authClient.token();
                 if (!token) return;
 
-                const res = await fetch("http://localhost:5000/api/payments/admin", {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/payments/admin`, {
                     headers: { Authorization: `Bearer ${token.token}` }
                 });
                 const data = await res.json();
@@ -78,7 +78,7 @@ export default function AdminOverview() {
 
             try {
                 const booksRes = await fetch(
-                    "http://localhost:5000/admin/books"
+                    `${process.env.NEXT_PUBLIC_SERVER_URL}/admin/books`
                 );
 
                 const books = await booksRes.json();

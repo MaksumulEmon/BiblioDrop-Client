@@ -26,7 +26,7 @@ export default function UserReadingList() {
             const { data: token } = await authClient.token();
             if (!token) return;
 
-            const res = await fetch("http://localhost:5000/api/deliveries/user", {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/deliveries/user`, {
                 headers: { Authorization: `Bearer ${token.token}` }
             });
             const data = await res.json();
@@ -70,7 +70,7 @@ export default function UserReadingList() {
             const { data: token } = await authClient.token();
             if (!token) return;
 
-            const res = await fetch("http://localhost:5000/api/reviews", {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/reviews`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
