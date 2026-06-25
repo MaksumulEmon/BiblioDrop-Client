@@ -132,10 +132,22 @@ const Navbar = () => {
                                                     <Label>Dashboard</Label>
                                                 </Link>
                                             </Dropdown.Item>
-
+                                            {/* 
                                             <Dropdown.Item id="copy-link" textValue="Copy link">
                                                 <CgProfile />
                                                 <Label>Profile</Label>
+                                            </Dropdown.Item> */}
+
+
+
+                                            <Dropdown.Item id="copy-link" textValue="Profile">
+                                                <Link
+                                                    href="/profile"
+                                                    className="flex items-center gap-2 w-full"
+                                                >
+                                                    <CgProfile />
+                                                    <Label>Profile</Label>
+                                                </Link>
                                             </Dropdown.Item>
 
                                             <Dropdown.Item
@@ -155,7 +167,6 @@ const Navbar = () => {
 
                     </div>
 
-                    {/* MOBILE BUTTON */}
                     {/* MOBILE BUTTONS */}
                     <div className="md:hidden flex items-center gap-3">
 
@@ -222,12 +233,24 @@ const Navbar = () => {
                                             </Link>
                                         </Dropdown.Item>
 
-                                        <Dropdown.Item>
+                                        {/* <Dropdown.Item>
                                             <div className="flex items-center gap-2">
                                                 <CgProfile />
                                                 <Label>Profile</Label>
                                             </div>
+                                        </Dropdown.Item> */}
+
+
+                                        <Dropdown.Item>
+                                            <Link
+                                                href="/profile"
+                                                className="flex items-center gap-2 w-full"
+                                            >
+                                                <CgProfile />
+                                                <Label>Profile</Label>
+                                            </Link>
                                         </Dropdown.Item>
+                                        
 
                                         <Dropdown.Item
                                             variant="danger"
