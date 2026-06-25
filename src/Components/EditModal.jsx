@@ -3,7 +3,7 @@
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import { Modal } from "@heroui/react";
+import { Button, Modal } from "@heroui/react";
 import { Pencil } from "lucide-react";
 import { updateBook } from "@/lib/api/book";
 
@@ -52,10 +52,10 @@ export function EditModal({ book }) {
             <Modal.Trigger>
 
 
-                <button className="flex items-center gap-2 px-6 py-3 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-700 transition shadow-lg">
+                <Button className="flex items-center gap-2 px-6 py-5 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-700 transition shadow-lg">
                     <Pencil size={18} />
                     Edit Book
-                </button>
+                </Button>
 
             
 

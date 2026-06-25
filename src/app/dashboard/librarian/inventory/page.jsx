@@ -8,6 +8,7 @@ import { deleteBook, updateBookStatus } from "@/lib/api/book";
 import { EditModal2 } from "@/Components/EditModal2";
 import { useRouter } from "next/navigation";
 import { AlertDialog, Button, } from "@heroui/react";
+import Image from "next/image";
 
 export default function LibrarianInventory() {
     const router = useRouter();
@@ -140,9 +141,17 @@ export default function LibrarianInventory() {
                                     <tr key={book._id} className="text-slate-300 hover:bg-white/5 transition-colors">
                                         <td className="py-4 font-semibold text-white flex items-center gap-3">
                                             {book.image && (
-                                                <img
+                                                // <img
+                                                //     src={book.image}
+                                                //     alt={book.title}
+                                                //     className="w-10 h-14 object-cover rounded-lg border border-white/10"
+                                                // />
+
+                                                <Image
                                                     src={book.image}
                                                     alt={book.title}
+                                                    width={40}
+                                                    height={56}
                                                     className="w-10 h-14 object-cover rounded-lg border border-white/10"
                                                 />
                                             )}

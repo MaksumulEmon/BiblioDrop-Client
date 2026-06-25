@@ -2,32 +2,11 @@
 
 import { deleteBook } from "@/lib/api/book";
 import { AlertDialog, Button } from "@heroui/react";
-import { Trash } from "lucide-react";
-// import { useRouter } from "next/router";
-
-// import { useRouter } from "next/router";
 import toast from "react-hot-toast";
+import { RiDeleteBinLine } from "react-icons/ri";
 
 
 export function DeleteAlert({ book }) {
-
-    // const router = useRouter();
-
-    // const handleDelete = async () => {
-    //     try {
-    //         const data = await deleteBook(book._id);
-
-    //         if (data.deletedCount > 0) {
-    //             toast.success(`${book.title} Deleted!`);
-
-    //             router.push("/all-books");
-    //             router.refresh();
-    //         }
-
-    //     } catch (error) {
-    //         toast.error("Delete Failed");
-    //     }
-    // };
 
     const handleDelete = async () => {
         try {
@@ -58,14 +37,17 @@ export function DeleteAlert({ book }) {
     return (
         <AlertDialog>
 
-            {/* 
-
-            {/* Trigger Button */}
+    
             <AlertDialog.Trigger>
-
-                <button className="px-6 py-3 bg-red-600 hover:bg-red-700  rounded-xl font-semibold transition">
+                <Button
+                    variant="danger"
+                    size="sm"
+                    className="flex font-semibold px-5 py-5 rounded-xl transition"
+                >
+                    
+                    <RiDeleteBinLine size={18} />
                     Delete Book
-                </button>
+                </Button>
             </AlertDialog.Trigger>
 
 

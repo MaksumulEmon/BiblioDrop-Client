@@ -114,19 +114,10 @@ const DetailsPage = async ({ params }) => {
 
                             {
                                 isOwner ? (
-                                    <div className="grid md:grid-cols-3 gap-3">
+                                    <div className="grid md:grid-cols-3 gap-3 mt-4">
 
-                                        <div className="flex gap-2 ">
+                                        <div className="flex gap-5 ">
                                             <EditModal book={book} />
-
-                                            {/*                                             
-                                        <button className="bg-amber-500 hover:bg-amber-600 text-black py-4 rounded-xl font-semibold transition">
-                                            Unpublish
-                                        </button> */}
-
-                                            {/* <button className="bg-red-600 hover:bg-red-700 py-4 rounded-xl font-semibold transition">
-                                            Delete Book
-                                        </button> */}
 
                                             <DeleteAlert book={book} />
 
@@ -139,21 +130,7 @@ const DetailsPage = async ({ params }) => {
                                             <input type="hidden" name="price" value={book.deliveryFee} />
                                             <input type="hidden" name="title" value={book.title} />
                                             <input type="hidden" name="productId" value={book._id} />
-                                            <button type="submit" className="
-w-full
-rounded-2xl
-py-4
-font-semibold
-bg-gradient-to-r
-from-violet-600
-to-indigo-600
-hover:from-violet-500
-hover:to-indigo-500
-transition-all
-duration-300
-shadow-lg
-shadow-violet-500/20 mt-3
-">
+                                            <button type="submit" className="w-full rounded-2xl py-4 font-semibold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all duration-300 shadow-lg shadow-violet-500/20 mt-3">
                                                 Request Delivery
                                             </button>
                                         </form>
@@ -174,14 +151,7 @@ shadow-violet-500/20 mt-3
                 </div>
 
                 {/* Description */}
-                <div className="
-mt-8
-rounded-3xl
-border border-white/10
-bg-slate-900/40
-backdrop-blur-xl
-p-8
-">
+                <div className="mt-8 rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl p-8">
 
                     <h2 className="text-2xl font-bold mb-5">
                         Description
