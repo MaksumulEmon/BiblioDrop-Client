@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import {
     FaBuilding,
     FaCalendarAlt,
@@ -39,6 +39,8 @@ const DashboardSideBar = () => {
         await authClient.signOut();
         redirect("/");
     };
+
+    const pathname = usePathname();
 
     const reader = [
         {
@@ -212,21 +214,7 @@ const DashboardSideBar = () => {
 
             {/* Sidebar */}
 
-
             {/* <aside
-                className={`
-        sticky top-0
-        w-64 h-screen
-        border-r border-white/10
-        bg-[#121212]
-        transition-transform duration-300 ease-in-out
-        ${isOpen ? "translate-x-0" : "-translate-x-full"}
-        lg:translate-x-0
-    `}
-            > */}
-
-
-            <aside
                 className={`
                     fixed lg:static top-0 left-0 z-50
                     w-64 h-screen border-r border-white/10 bg-[#121212]
@@ -234,7 +222,22 @@ const DashboardSideBar = () => {
                     ${isOpen ? "translate-x-0" : "-translate-x-full"}
                     lg:translate-x-0
                 `}
+            > */}
+
+            <aside
+                className={`
+        fixed lg:sticky
+        lg:top-0
+        top-0 left-0 z-50
+        w-64 h-screen
+        border-r border-white/10
+        bg-[#121212]
+        transition-transform duration-300 ease-in-out
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        lg:translate-x-0
+    `}
             >
+
                 <div className="h-full flex flex-col bg-[#111827]">
 
                     {/* Mobile Close */}
@@ -295,7 +298,10 @@ const DashboardSideBar = () => {
                                     key={key}
                                     href={href}
                                     onClick={() => setIsOpen(false)}
-                                    className="group w-full flex items-center gap-3 px-3 py-3 rounded-2xl text-sm font-medium text-slate-400 hover:text-white hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-purple-500/10 transition-all duration-300"
+                                    className={`group w-full flex items-center gap-3 px-3 py-3 rounded-2xl text-sm font-medium text-slate-400 hover:text-white hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-purple-500/10 transition-all duration-300    ${pathname === href
+                                        ? "bg-gradient-to-r from-violet-500/20 to-indigo-500/20 text-white border border-violet-500/20"
+                                        : "text-slate-400 hover:text-white hover:bg-gradient-to-r hover:from-violet-500/10 hover:to-indigo-500/10"
+                                        } `}
                                 >
                                     <span className="w-9 h-9 rounded-xl bg-white/5 flex items-center justify-center shrink-0 text-slate-400 group-hover:text-blue-400 group-hover:bg-white/10 transition-all duration-300">
                                         <Icon size={20} />
