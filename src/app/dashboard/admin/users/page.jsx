@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { Loader2, Users, ShieldAlert, Trash2, Ban, CheckCircle } from "lucide-react";
 import { Avatar } from "@heroui/react";
 import { useRouter } from "next/navigation";
+import { AlertDialog, Button } from "@heroui/react";
 
 export default function AdminUsers() {
     const router = useRouter();
@@ -99,7 +100,6 @@ export default function AdminUsers() {
     };
 
     const handleDeleteUser = async (userId) => {
-        if (!confirm("Are you sure you want to delete this user? This cannot be undone.")) return;
 
         try {
             const { data: token } = await authClient.token();
@@ -191,11 +191,10 @@ export default function AdminUsers() {
                                                 )}
                                             </td>
                                             <td className="py-4">
-                                                <span className={`px-2.5 py-0.5 text-xs font-semibold rounded-full border ${
-                                                    isBlocked 
-                                                        ? "bg-red-500/10 border-red-500/20 text-red-400"
-                                                        : "bg-green-500/10 border-green-500/20 text-green-400"
-                                                }`}>
+                                                <span className={`px-2.5 py-0.5 text-xs font-semibold rounded-full border ${isBlocked
+                                                    ? "bg-red-500/10 border-red-500/20 text-red-400"
+                                                    : "bg-green-500/10 border-green-500/20 text-green-400"
+                                                    }`}>
                                                     {isBlocked ? "BLOCKED" : "ACTIVE"}
                                                 </span>
                                             </td>
@@ -204,23 +203,73 @@ export default function AdminUsers() {
                                                     <div className="flex gap-2 justify-end">
                                                         <button
                                                             onClick={() => handleBlockToggle(usr._id, isBlocked)}
-                                                            className={`p-2.5 border rounded-xl transition cursor-pointer ${
-                                                                isBlocked 
-                                                                    ? "bg-green-500/10 border-green-500/20 text-green-400 hover:bg-green-500/20"
-                                                                    : "bg-yellow-500/10 border-yellow-500/20 text-yellow-400 hover:bg-yellow-500/20"
-                                                            }`}
+                                                            className={`p-2.5 border rounded-xl transition cursor-pointer ${isBlocked
+                                                                ? "bg-green-500/10 border-green-500/20 text-green-400 hover:bg-green-500/20"
+                                                                : "bg-yellow-500/10 border-yellow-500/20 text-yellow-400 hover:bg-yellow-500/20"
+                                                                }`}
                                                             title={isBlocked ? "Unblock user" : "Block user"}
                                                         >
                                                             {isBlocked ? <CheckCircle size={16} /> : <Ban size={16} />}
                                                         </button>
 
-                                                        <button
-                                                            onClick={() => handleDeleteUser(usr._id)}
-                                                            className="p-2.5 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 rounded-xl text-red-400 hover:text-red-300 transition cursor-pointer"
-                                                            title="Delete user"
-                                                        >
-                                                            <Trash2 size={16} />
-                                                        </button>
+
+                                                        <AlertDialog onPress={() => handleDeleteUser(usr._id)}>
+                                                            <Button
+                                                                isIconOnly
+                                                                variant="light"
+                                                                className="p-2.5 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 rounded-xl text-red-400 hover:text-red-300 transition min-w-0"
+                                                            >
+                                                                <Trash2 size={16} />
+                                                            </Button>
+
+                                                            <AlertDialog.Backdrop>
+                                                                <AlertDialog.Container>
+                                                                    <AlertDialog.Dialog className="sm:max-w-[420px] bg-slate-900 border border-slate-700 text-white">
+
+                                                                        <AlertDialog.CloseTrigger />
+
+                                                                        <AlertDialog.Header>
+                                                                            <AlertDialog.Icon status="danger" />
+                                                                            <AlertDialog.Heading>
+                                                                                Delete User?
+                                                                            </AlertDialog.Heading>
+                                                                        </AlertDialog.Header>
+
+                                                                        <AlertDialog.Body>
+                                                                            <p>
+                                                                                Are you sure you want to delete{" "}
+                                                                                <strong className="text-red-400">
+                                                                                    {usr.name}
+                                                                                </strong>
+                                                                                ?
+                                                                            </p>
+
+                                                                            <p className="text-sm text-slate-500 mt-2">
+                                                                                This action cannot be undone.
+                                                                            </p>
+                                                                        </AlertDialog.Body>
+
+                                                                        <AlertDialog.Footer>
+                                                                            <Button
+                                                                                slot="close"
+                                                                                variant="bordered"
+                                                                            >
+                                                                                Cancel
+                                                                            </Button>
+
+                                                                            <Button
+                                                                                slot="close"
+                                                                                color="danger"
+                                                                                onPress={() => handleDeleteUser(usr._id)}
+                                                                            >
+                                                                                Delete User
+                                                                            </Button>
+                                                                        </AlertDialog.Footer>
+
+                                                                    </AlertDialog.Dialog>
+                                                                </AlertDialog.Container>
+                                                            </AlertDialog.Backdrop>
+                                                        </AlertDialog>
                                                     </div>
                                                 )}
                                             </td>

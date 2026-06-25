@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { Loader2, BookOpen, Trash2, Eye, EyeOff } from "lucide-react";
 import { deleteBook, updateBookStatus } from "@/lib/api/book";
 import { useRouter } from "next/navigation";
+import { AlertDialog, Button } from "@heroui/react";
 
 export default function AdminBooksSystem() {
     const router = useRouter();
@@ -14,6 +15,7 @@ export default function AdminBooksSystem() {
 
     const [books, setBooks] = useState([]);
     const [loadingData, setLoadingData] = useState(true);
+    const [selectedBookId, setSelectedBookId] = useState(null);
 
     const loadAllBooks = async () => {
         try {
@@ -38,21 +40,31 @@ export default function AdminBooksSystem() {
         loadAllBooks();
     }, [user, isPending, router]);
 
-    const handleDelete = async (bookId) => {
-        if (!confirm("Are you sure you want to delete this book? This will remove it permanently.")) return;
+
+
+    const handleDelete = async () => {
+        if (!selectedBookId) return;
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/admin/book/${bookId}`, {
-                method: "DELETE"
-            });
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/admin/book/${selectedBookId}`,
+                {
+                    method: "DELETE",
+                }
+            );
+
             if (res.ok) {
                 toast.success("Book deleted");
-                setBooks(prev => prev.filter(b => b._id !== bookId));
+                setBooks((prev) =>
+                    prev.filter((b) => b._id !== selectedBookId)
+                );
             } else {
                 toast.error("Failed to delete book");
             }
         } catch (err) {
             toast.error("An error occurred");
+        } finally {
+            setSelectedBookId(null);
         }
     };
 
@@ -124,9 +136,9 @@ export default function AdminBooksSystem() {
                                     <tr key={book._id} className="text-slate-300 hover:bg-white/5 transition-colors">
                                         <td className="py-4 flex gap-3 max-w-xs">
                                             {book.image && (
-                                                <img 
-                                                    src={book.image} 
-                                                    alt={book.title} 
+                                                <img
+                                                    src={book.image}
+                                                    alt={book.title}
                                                     className="w-10 h-14 object-cover rounded-lg border border-white/10 shrink-0"
                                                 />
                                             )}
@@ -150,23 +162,24 @@ export default function AdminBooksSystem() {
                                             <div className="flex gap-2 justify-end">
                                                 <button
                                                     onClick={() => handleStatusToggle(book._id, book.status)}
-                                                    className={`p-2.5 border rounded-xl transition cursor-pointer ${
-                                                        book.status === "published"
-                                                            ? "bg-yellow-500/10 border-yellow-500/20 text-yellow-400 hover:bg-yellow-500/20"
-                                                            : "bg-green-500/10 border-green-500/20 text-green-400 hover:bg-green-500/20"
-                                                    }`}
+                                                    className={`p-2.5 border rounded-xl transition cursor-pointer ${book.status === "published"
+                                                        ? "bg-yellow-500/10 border-yellow-500/20 text-yellow-400 hover:bg-yellow-500/20"
+                                                        : "bg-green-500/10 border-green-500/20 text-green-400 hover:bg-green-500/20"
+                                                        }`}
                                                     title={book.status === "published" ? "Unpublish Book" : "Publish Book"}
                                                 >
                                                     {book.status === "published" ? <EyeOff size={16} /> : <Eye size={16} />}
                                                 </button>
 
+
                                                 <button
-                                                    onClick={() => handleDelete(book._id)}
+                                                    onClick={() => setSelectedBookId(book._id)}
                                                     className="p-2.5 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 rounded-xl text-red-400 hover:text-red-300 transition cursor-pointer"
                                                     title="Delete Book"
                                                 >
                                                     <Trash2 size={16} />
                                                 </button>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -176,6 +189,55 @@ export default function AdminBooksSystem() {
                     </div>
                 )}
             </div>
+
+
+            <AlertDialog
+                isOpen={!!selectedBookId}
+                onOpenChange={(open) => {
+                    if (!open) setSelectedBookId(null);
+                }}
+            >
+                <AlertDialog.Backdrop>
+                    <AlertDialog.Container>
+                        <AlertDialog.Dialog className="max-w-md border border-white/10 bg-slate-900 text-white">
+
+                            <AlertDialog.Header>
+                                <AlertDialog.Icon status="danger" />
+                                <AlertDialog.Heading>
+                                    Delete Book?
+                                </AlertDialog.Heading>
+                            </AlertDialog.Header>
+
+                            <AlertDialog.Body>
+                                <p className="text-slate-400">
+                                    This action will permanently remove this book
+                                    from the system and cannot be undone.
+                                </p>
+                            </AlertDialog.Body>
+
+                            <AlertDialog.Footer>
+
+                                <Button
+                                    variant="bordered"
+                                    onPress={() => setSelectedBookId(null)}
+                                >
+                                    Cancel
+                                </Button>
+
+                                <Button
+                                    color="danger"
+                                    onPress={handleDelete}
+                                >
+                                    Delete Book
+                                </Button>
+
+                            </AlertDialog.Footer>
+
+                        </AlertDialog.Dialog>
+                    </AlertDialog.Container>
+                </AlertDialog.Backdrop>
+            </AlertDialog>
+
         </div>
     );
 }
