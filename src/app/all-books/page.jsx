@@ -79,11 +79,11 @@ const AllBooks = async ({ searchParams }) => {
             "
                     >
                         <option value="">All Categories</option>
-                        <option value="Novel">Novel</option>
+                        <option value="Fiction">Fiction</option>
                         <option value="Science">Science</option>
                         <option value="History">History</option>
                         <option value="Biography">Biography</option>
-                        <option value="Technology">Technology</option>
+                        <option value="Academic">Academic</option>
                     </select>
 
                     {/* Button */}

@@ -28,6 +28,7 @@ import {
 } from "react-icons/fa";
 import { Avatar } from "@heroui/react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
+import toast from "react-hot-toast";
 
 const DashboardSideBar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -37,6 +38,7 @@ const DashboardSideBar = () => {
 
     const handleLogout = async () => {
         await authClient.signOut();
+        toast.error("Logout")
         redirect("/");
     };
 
