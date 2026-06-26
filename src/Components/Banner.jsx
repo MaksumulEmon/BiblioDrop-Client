@@ -342,7 +342,7 @@ export default function Banner() {
                             className="mt-10 flex flex-wrap gap-4"
                         >
                             <Link
-                                href="/about"
+                                href="/all-books"
                                 className="rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-7 py-3 text-white font-medium transition hover:scale-105"
                             >
                                 Browse Books
