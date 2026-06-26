@@ -1,4 +1,5 @@
 import Banner from "@/Components/Banner";
+import CallToAction from "@/Components/CallToAction";
 import FeaturedBook from "@/Components/FeaturedBook";
 import FeaturedBooksMarquee from "@/Components/FeaturedBooksMarquee";
 import TopLibrarians from "@/Components/TopLibrarians";
@@ -12,6 +13,7 @@ export default function Home() {
         <FeaturedBooksMarquee />
         <FeaturedBook/>
         <TopLibrarians/>
+        <CallToAction/>
     </div>
   );
 }
