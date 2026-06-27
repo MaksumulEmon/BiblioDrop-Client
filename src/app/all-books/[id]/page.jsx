@@ -34,6 +34,26 @@ const DetailsPage = async ({ params }) => {
         headers: await headers()
     });
 
+
+
+    let purchased = false;
+
+    if (session?.user) {
+
+        const paymentRes = await fetch(
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/payments/check/${id}/${session.user.id}`,
+            {
+                cache: "no-store",
+            }
+        );
+
+        const paymentData = await paymentRes.json();
+
+        purchased = paymentData.purchased;
+    }
+
+
+
     const isOwner = book?.userId === session?.user?.id;
     const isAdmin = session?.user?.role === "admin";
 
@@ -125,15 +145,37 @@ const DetailsPage = async ({ params }) => {
                                     </div>
                                 ) : (
                                     session?.user ? (
-                                        <form action={'/api/payment'} method="POST">
+                                        // <form action={'/api/payment'} method="POST">
+
+                                        //     <input type="hidden" name="price" value={book.deliveryFee} />
+                                        //     <input type="hidden" name="title" value={book.title} />
+                                        //     <input type="hidden" name="productId" value={book._id} />
+                                        //     <button type="submit" className="w-full rounded-2xl py-4 font-semibold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all duration-300 shadow-lg shadow-violet-500/20 mt-3">
+                                        //         Request Delivery
+                                        //     </button>
+                                        // </form>
+
+                                        <form action="/api/payment" method="POST">
 
                                             <input type="hidden" name="price" value={book.deliveryFee} />
                                             <input type="hidden" name="title" value={book.title} />
                                             <input type="hidden" name="productId" value={book._id} />
-                                            <button type="submit" className="w-full rounded-2xl py-4 font-semibold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all duration-300 shadow-lg shadow-violet-500/20 mt-3">
-                                                Request Delivery
+
+                                            <button
+                                                type="submit"
+                                                disabled={purchased}
+                                                className={`w-full rounded-2xl py-4 font-semibold transition-all duration-300 mt-3 ${purchased
+                                                        ? "bg-gray-500 cursor-not-allowed text-white"
+                                                        : "bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 shadow-lg shadow-violet-500/20"
+                                                    }`}
+                                            >
+                                                {purchased ? "✓ Already Purchased" : "Request Delivery"}
                                             </button>
+
                                         </form>
+
+
+
                                     ) : (
                                         <Link
                                             href="/signin"
