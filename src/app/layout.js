@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
+import BiblioBot from "@/Components/BiblioBot";
 import { Toaster } from "react-hot-toast";
 
 
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
           {children}
         </main>
         <Footer />
+        <BiblioBot />
         <Toaster />
       </body>
     </html>
