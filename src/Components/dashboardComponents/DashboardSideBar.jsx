@@ -25,6 +25,7 @@ import {
     FaDollarSign,
     FaChartBar,
     FaChartPie,
+    FaExclamationTriangle,
 } from "react-icons/fa";
 import { Avatar } from "@heroui/react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
@@ -141,6 +142,12 @@ const DashboardSideBar = () => {
             label: "Transactions",
             icon: FaTicketAlt,
             href: "/dashboard/admin/transactions",
+        },
+        {
+            key: "anomalies",
+            label: "AI Anomaly Detection",
+            icon: FaExclamationTriangle,
+            href: "/dashboard/admin/anomalies",
         },
         // {
         //     key: "analytics",

@@ -1,9 +1,10 @@
-"use client";
-
+"use client"
 import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
-import { Users, BookOpen, Truck, DollarSign, Loader2, Sparkles, ShieldCheck } from "lucide-react";
+import { Users, BookOpen, Truck, DollarSign, Loader2, Sparkles, ShieldCheck, ShieldAlert, AlertTriangle, ArrowRight, CheckCircle2, Clock } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { getAdminAnomalies } from "@/lib/api/ai";
 import {
     PieChart,
     Pie,
@@ -24,6 +25,13 @@ export default function AdminOverview() {
         totalDeliveries: 0,
         totalRevenue: 0,
     });
+
+    const [anomalySummary, setAnomalySummary] = useState({
+        totalFlagged: 0,
+        highSeverityCount: 0,
+        pendingReviewCount: 0,
+    });
+    const [topAnomalies, setTopAnomalies] = useState([]);
 
 
     const COLORS = [
@@ -68,6 +76,17 @@ export default function AdminOverview() {
                     totalDeliveries: deliveries.length,
                     totalRevenue,
                 });
+
+                // Load AI Anomaly Detection summary
+                try {
+                    const anomRes = await getAdminAnomalies(token.token);
+                    if (anomRes.success) {
+                        setAnomalySummary(anomRes.summary || {});
+                        setTopAnomalies((anomRes.anomalies || []).slice(0, 3));
+                    }
+                } catch (anomErr) {
+                    console.warn("Could not load anomalies in overview:", anomErr);
+                }
             } catch (err) {
                 console.error("Error loading admin stats:", err);
             } finally {
@@ -207,6 +226,100 @@ export default function AdminOverview() {
                         </div>
                     );
                 })}
+            </div>
+
+            {/* AI Order Anomaly Detection Section */}
+            <div className="bg-slate-900/70 border border-purple-500/20 rounded-3xl p-6 backdrop-blur-xl relative overflow-hidden shadow-xl">
+                <div className="absolute top-0 right-0 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
+
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 relative">
+                    <div className="flex items-center gap-3">
+                        <span className="p-2.5 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 border border-purple-500/30 rounded-2xl text-purple-400">
+                            <ShieldAlert className="w-6 h-6" />
+                        </span>
+                        <div>
+                            <div className="flex items-center gap-2">
+                                <h2 className="text-xl md:text-2xl font-bold text-white">
+                                    AI Order Anomaly Detection
+                                </h2>
+                                <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                                    Gemini 1.5
+                                </span>
+                            </div>
+                            <p className="text-xs text-slate-400 mt-0.5">
+                                Real-time intelligence monitoring 2 orders/day limits, cancellations, and failed payments.
+                            </p>
+                        </div>
+                    </div>
+
+                    <Link
+                        href="/dashboard/admin/anomalies"
+                        className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-md shadow-purple-500/20 self-start sm:self-auto"
+                    >
+                        <span>Open Anomaly Center</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                </div>
+
+                {/* Quick Summary Counts */}
+                <div className="grid grid-cols-3 gap-3 mb-5">
+                    <div className="p-3.5 rounded-2xl bg-slate-950/60 border border-white/5">
+                        <span className="text-[11px] text-slate-400 block">Total Flagged</span>
+                        <span className="text-xl font-extrabold text-white mt-0.5 block">{anomalySummary.totalFlagged || 0}</span>
+                    </div>
+                    <div className="p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/20">
+                        <span className="text-[11px] text-rose-300 block">High Severity</span>
+                        <span className="text-xl font-extrabold text-rose-400 mt-0.5 block">{anomalySummary.highSeverityCount || 0}</span>
+                    </div>
+                    <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20">
+                        <span className="text-[11px] text-amber-300 block">Pending Review</span>
+                        <span className="text-xl font-extrabold text-amber-400 mt-0.5 block">{anomalySummary.pendingReviewCount || 0}</span>
+                    </div>
+                </div>
+
+                {/* Recent Anomaly Snippets */}
+                {topAnomalies.length === 0 ? (
+                    <div className="p-6 text-center rounded-2xl bg-slate-950/40 border border-white/5">
+                        <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto mb-2 opacity-80" />
+                        <p className="text-xs text-slate-300 font-semibold">All User Ordering Within Standard Thresholds</p>
+                        <p className="text-[11px] text-slate-500 mt-0.5">
+                            No users have exceeded 2 orders/day or accumulated multiple cancellations/failures.
+                        </p>
+                    </div>
+                ) : (
+                    <div className="space-y-3">
+                        {topAnomalies.map((anom) => (
+                            <div
+                                key={anom.userId}
+                                className="p-4 rounded-2xl bg-slate-950/80 border border-white/5 hover:border-purple-500/30 transition flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                            >
+                                <div className="space-y-1">
+                                    <div className="flex items-center gap-2">
+                                        <span className="font-bold text-xs text-white">{anom.userName}</span>
+                                        <span className="text-[11px] text-slate-400">({anom.userEmail})</span>
+                                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${
+                                            anom.aiAnalysis?.severity === "High"
+                                                ? "bg-rose-500/10 border-rose-500/30 text-rose-400"
+                                                : "bg-amber-500/10 border-amber-500/30 text-amber-400"
+                                        }`}>
+                                            {anom.aiAnalysis?.severity}
+                                        </span>
+                                    </div>
+                                    <p className="text-xs text-slate-300 line-clamp-1 italic">
+                                        "{anom.aiAnalysis?.explanation}"
+                                    </p>
+                                </div>
+
+                                <Link
+                                    href="/dashboard/admin/anomalies"
+                                    className="text-xs text-purple-400 hover:text-purple-300 font-semibold flex items-center gap-1 shrink-0"
+                                >
+                                    Review Activity &rarr;
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
 
             {/* Books By Category Chart */}

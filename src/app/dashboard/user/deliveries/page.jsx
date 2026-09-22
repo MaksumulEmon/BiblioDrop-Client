@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
-import { Loader2, Truck, Calendar, DollarSign, CheckCircle2 } from "lucide-react";
+import { Loader2, Truck, Calendar, DollarSign, CheckCircle2, XCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { cancelOrder } from "@/lib/api/ai";
 
 export default function UserDeliveries() {
     const router = useRouter();
@@ -12,6 +14,7 @@ export default function UserDeliveries() {
 
     const [deliveries, setDeliveries] = useState([]);
     const [loadingData, setLoadingData] = useState(true);
+    const [cancellingId, setCancellingId] = useState(null);
 
     useEffect(() => {
         if (isPending) return;
@@ -40,6 +43,35 @@ export default function UserDeliveries() {
         loadDeliveries();
     }, [user, isPending, router]);
 
+    const handleCancelOrder = async (deliveryId, bookTitle) => {
+        if (!confirm(`Are you sure you want to cancel the delivery request for "${bookTitle}"?`)) {
+            return;
+        }
+
+        try {
+            setCancellingId(deliveryId);
+            const { data: token } = await authClient.token();
+            if (!token?.token) {
+                toast.error("Authentication required");
+                return;
+            }
+
+            const res = await cancelOrder(deliveryId, token.token, "Cancelled by reader from dashboard");
+            if (res.success) {
+                toast.success("Order cancelled successfully");
+                setDeliveries(prev =>
+                    prev.map(d => d._id === deliveryId ? { ...d, status: "cancelled" } : d)
+                );
+            } else {
+                toast.error(res.error || "Failed to cancel order");
+            }
+        } catch (err) {
+            toast.error(err.message || "Failed to cancel order");
+        } finally {
+            setCancellingId(null);
+        }
+    };
+
     const statusBadge = (status) => {
         switch (status) {
             case "pending":
@@ -48,6 +80,8 @@ export default function UserDeliveries() {
                 return "bg-blue-500/10 border-blue-500/20 text-blue-400";
             case "delivered":
                 return "bg-green-500/10 border-green-500/20 text-green-400";
+            case "cancelled":
+                return "bg-rose-500/10 border-rose-500/20 text-rose-400";
             default:
                 return "bg-slate-500/10 border-slate-500/20 text-slate-400";
         }
@@ -84,6 +118,7 @@ export default function UserDeliveries() {
                                     <th className="pb-4 font-bold">Payment</th>
                                     <th className="pb-4 font-bold">Status</th>
                                     <th className="pb-4 font-bold">Date</th>
+                                    <th className="pb-4 font-bold text-right">Action</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-white/5">
@@ -114,6 +149,30 @@ export default function UserDeliveries() {
                                                 month: 'short',
                                                 day: 'numeric'
                                             })}
+                                        </td>
+                                        <td className="py-4 text-right">
+                                            {delivery.status === "pending" ? (
+                                                <button
+                                                    onClick={() => handleCancelOrder(delivery._id, delivery.bookTitle)}
+                                                    disabled={cancellingId === delivery._id}
+                                                    className="px-3 py-1.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 text-xs font-semibold transition flex items-center gap-1.5 ml-auto disabled:opacity-50"
+                                                >
+                                                    {cancellingId === delivery._id ? (
+                                                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                                                    ) : (
+                                                        <XCircle className="w-3.5 h-3.5" />
+                                                    )}
+                                                    Cancel Order
+                                                </button>
+                                            ) : delivery.status === "cancelled" ? (
+                                                <span className="text-xs text-rose-400/80 italic font-mono">
+                                                    Order Cancelled
+                                                </span>
+                                            ) : (
+                                                <span className="text-xs text-slate-500">
+                                                    —
+                                                </span>
+                                            )}
                                         </td>
                                     </tr>
                                 ))}

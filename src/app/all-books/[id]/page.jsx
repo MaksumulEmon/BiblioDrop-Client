@@ -8,8 +8,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-const DetailsPage = async ({ params }) => {
+const DetailsPage = async ({ params, searchParams }) => {
     const { id } = await params;
+    const search = searchParams ? await searchParams : {};
 
     const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/librarian/${id}`,
@@ -35,12 +36,11 @@ const DetailsPage = async ({ params }) => {
         headers: await headers()
     });
 
-
-
     let purchased = false;
+    let ordersToday = 0;
+    let canOrderToday = true;
 
     if (session?.user) {
-
         const paymentRes = await fetch(
             `${process.env.NEXT_PUBLIC_SERVER_URL}/payments/check/${id}/${session.user.id}`,
             {
@@ -49,11 +49,44 @@ const DetailsPage = async ({ params }) => {
         );
 
         const paymentData = await paymentRes.json();
-
         purchased = paymentData.purchased;
+
+        // Check user's daily order limit
+        try {
+            const limitRes = await fetch(
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders/daily-limit-check/${session.user.id}`,
+                { cache: "no-store" }
+            );
+            if (limitRes.ok) {
+                const limitData = await limitRes.json();
+                ordersToday = limitData.ordersToday || 0;
+                canOrderToday = limitData.canOrder !== false;
+            }
+        } catch (e) {
+            console.warn("Could not check daily limit:", e);
+        }
+
+        // Record failed/cancelled payment if customer backed out on Stripe
+        if (search?.payment_cancelled && book?._id) {
+            try {
+                await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/payments/record-failed`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        userId: session.user.id,
+                        userEmail: session.user.email,
+                        userName: session.user.name,
+                        bookId: book._id,
+                        bookTitle: book.title,
+                        amount: book.deliveryFee,
+                        reason: "Checkout cancelled by customer on Stripe"
+                    })
+                });
+            } catch (e) {
+                console.warn("Could not record payment cancellation:", e);
+            }
+        }
     }
-
-
 
     const isOwner = book?.userId === session?.user?.id;
     const isAdmin = session?.user?.role === "admin";
@@ -133,6 +166,26 @@ const DetailsPage = async ({ params }) => {
                             </div>
 
 
+                            {(!canOrderToday || search?.error === "daily_limit_reached") && (
+                                <div className="mt-4 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-sm flex items-start gap-3">
+                                    <span className="text-lg">⚠️</span>
+                                    <div>
+                                        <strong className="block font-semibold">Daily Order Limit Reached</strong>
+                                        You have placed {ordersToday} of 2 allowed book delivery orders today. The daily limit resets at midnight.
+                                    </div>
+                                </div>
+                            )}
+
+                            {search?.payment_cancelled && (
+                                <div className="mt-4 p-4 rounded-2xl bg-blue-500/10 border border-blue-500/30 text-blue-300 text-sm flex items-start gap-3">
+                                    <span className="text-lg">ℹ️</span>
+                                    <div>
+                                        <strong className="block font-semibold">Payment Cancelled</strong>
+                                        Your checkout was cancelled. No charges were made. You can try again whenever you're ready.
+                                    </div>
+                                </div>
+                            )}
+
                             {
                                 isOwner ? (
                                     <div className="grid md:grid-cols-3 gap-3 mt-4">
@@ -146,16 +199,6 @@ const DetailsPage = async ({ params }) => {
                                     </div>
                                 ) : (
                                     session?.user ? (
-                                        // <form action={'/api/payment'} method="POST">
-
-                                        //     <input type="hidden" name="price" value={book.deliveryFee} />
-                                        //     <input type="hidden" name="title" value={book.title} />
-                                        //     <input type="hidden" name="productId" value={book._id} />
-                                        //     <button type="submit" className="w-full rounded-2xl py-4 font-semibold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all duration-300 shadow-lg shadow-violet-500/20 mt-3">
-                                        //         Request Delivery
-                                        //     </button>
-                                        // </form>
-
                                         <form action="/api/payment" method="POST">
 
                                             <input type="hidden" name="price" value={book.deliveryFee} />
@@ -164,13 +207,20 @@ const DetailsPage = async ({ params }) => {
 
                                             <button
                                                 type="submit"
-                                                disabled={purchased}
-                                                className={`w-full rounded-2xl py-4 font-semibold transition-all duration-300 mt-3 ${purchased
+                                                disabled={purchased || !canOrderToday}
+                                                className={`w-full rounded-2xl py-4 font-semibold transition-all duration-300 mt-3 ${
+                                                    purchased
                                                         ? "bg-gray-500 cursor-not-allowed text-white"
-                                                        : "bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 shadow-lg shadow-violet-500/20"
-                                                    }`}
+                                                        : !canOrderToday
+                                                            ? "bg-amber-600/30 cursor-not-allowed text-amber-200 border border-amber-500/30"
+                                                            : "bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 shadow-lg shadow-violet-500/20"
+                                                }`}
                                             >
-                                                {purchased ? "✓ Already Purchased" : "Request Delivery"}
+                                                {purchased 
+                                                    ? "✓ Already Purchased" 
+                                                    : !canOrderToday 
+                                                        ? "Daily Limit Reached (2/2 Orders Today)" 
+                                                        : "Request Delivery"}
                                             </button>
 
                                         </form>

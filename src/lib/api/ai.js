@@ -109,3 +109,166 @@ export const askBookQA = async (bookId, question) => {
     }
 };
 
+/**
+ * Fetch all detected order anomalies for Admin.
+ * @param {string} token - JWT bearer token
+ * @returns {Promise<{success: boolean, summary: object, anomalies: Array}>}
+ */
+export const getAdminAnomalies = async (token) => {
+    try {
+        const res = await fetch(`${baseUrl}/api/admin/anomalies`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            cache: "no-store",
+        });
+
+        if (!res.ok) {
+            const errData = await res.json().catch(() => ({}));
+            throw new Error(errData.error || `Server returned ${res.status}`);
+        }
+
+        return await res.json();
+    } catch (err) {
+        console.error("Error fetching anomalies:", err);
+        throw err;
+    }
+};
+
+/**
+ * Review an order anomaly without auto-banning.
+ * @param {string} token
+ * @param {string} userId
+ * @param {string} reviewStatus - "Reviewed" | "Pending Review"
+ * @param {string} adminNote
+ * @returns {Promise<{success: boolean, message: string}>}
+ */
+export const reviewAnomaly = async (token, userId, reviewStatus = "Reviewed", adminNote = "") => {
+    try {
+        const res = await fetch(`${baseUrl}/api/admin/anomalies/review/${userId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ reviewStatus, adminNote }),
+        });
+
+        if (!res.ok) {
+            const errData = await res.json().catch(() => ({}));
+            throw new Error(errData.error || `Server returned ${res.status}`);
+        }
+
+        return await res.json();
+    } catch (err) {
+        console.error("Error reviewing anomaly:", err);
+        throw err;
+    }
+};
+
+/**
+ * Seed demo anomalies for presentation and testing.
+ * @param {string} token
+ */
+export const seedDemoAnomalies = async (token) => {
+    try {
+        const res = await fetch(`${baseUrl}/api/admin/anomalies/seed-demo`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        if (!res.ok) throw new Error("Failed to seed demo data");
+        return await res.json();
+    } catch (err) {
+        console.error("Error seeding demo anomalies:", err);
+        throw err;
+    }
+};
+
+/**
+ * Clear demo anomalies from database.
+ * @param {string} token
+ */
+export const clearDemoAnomalies = async (token) => {
+    try {
+        const res = await fetch(`${baseUrl}/api/admin/anomalies/seed-demo`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        if (!res.ok) throw new Error("Failed to clear demo data");
+        return await res.json();
+    } catch (err) {
+        console.error("Error clearing demo anomalies:", err);
+        throw err;
+    }
+};
+
+/**
+ * Check a user's daily order limit.
+ * @param {string} userId
+ * @returns {Promise<{ordersToday: number, maxLimit: number, canOrder: boolean, remaining: number}>}
+ */
+export const checkDailyOrderLimit = async (userId) => {
+    try {
+        const res = await fetch(`${baseUrl}/api/orders/daily-limit-check/${userId}`, {
+            cache: "no-store",
+        });
+        if (!res.ok) return { ordersToday: 0, maxLimit: 2, canOrder: true, remaining: 2 };
+        return await res.json();
+    } catch (err) {
+        console.warn("Error checking daily limit:", err);
+        return { ordersToday: 0, maxLimit: 2, canOrder: true, remaining: 2 };
+    }
+};
+
+/**
+ * Cancel a pending order/delivery.
+ * @param {string} deliveryId
+ * @param {string} token
+ * @param {string} reason
+ */
+export const cancelOrder = async (deliveryId, token, reason = "Cancelled by user") => {
+    try {
+        const res = await fetch(`${baseUrl}/api/deliveries/${deliveryId}/cancel`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ reason }),
+        });
+
+        if (!res.ok) {
+            const errData = await res.json().catch(() => ({}));
+            throw new Error(errData.error || `Server returned ${res.status}`);
+        }
+
+        return await res.json();
+    } catch (err) {
+        console.error("Error cancelling order:", err);
+        throw err;
+    }
+};
+
+/**
+ * Record a failed or cancelled payment attempt.
+ */
+export const recordFailedPayment = async (data) => {
+    try {
+        const res = await fetch(`${baseUrl}/api/payments/record-failed`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        return await res.json();
+    } catch (err) {
+        console.warn("Failed to record payment cancellation:", err);
+    }
+};
+
+

@@ -19,6 +19,22 @@ export async function POST(request) {
         const productId = formData.get('productId')
         console.log(user, price, title, productId)
 
+        // Enforce Rule 1: Max 2 orders per day
+        if (user?.id) {
+            try {
+                const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+                const limitRes = await fetch(`${serverUrl}/api/orders/daily-limit-check/${user.id}`, { cache: "no-store" });
+                if (limitRes.ok) {
+                    const limitData = await limitRes.json();
+                    if (limitData.ordersToday >= 2) {
+                        return NextResponse.redirect(`${origin}/all-books/${productId}?error=daily_limit_reached`, 303);
+                    }
+                }
+            } catch (limitErr) {
+                console.warn("Could not verify daily order limit:", limitErr);
+            }
+        }
+
         const session = await stripe.checkout.sessions.create({
             customer_email: user?.email,
             line_items: [
@@ -45,6 +61,7 @@ export async function POST(request) {
             },
             mode: "payment",
             success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${origin}/all-books/${productId}?payment_cancelled=true&title=${encodeURIComponent(title)}`,
         });
         return NextResponse.redirect(session.url, 303);
     } catch (err) {
