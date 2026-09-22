@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import { redirect, usePathname } from "next/navigation";
-import { Moon, Menu, X } from "lucide-react";
+import { Moon, Menu, X, Home, BookOpen, Info, ChevronRight, LogIn, UserPlus, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Avatar, Button, Dropdown, Label } from "@heroui/react";
 import Link from "next/link";
 import NavLink from "./NavLink";
@@ -48,7 +49,7 @@ const Navbar = () => {
                         {/* Logo */}
                         <Link
                             href="/"
-                            className="text-2xl font-bold tracking-tight"
+                            className="text-xl sm:text-2xl font-bold tracking-tight"
                         >
                             <span className="text-white">Biblio</span>
                             <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
@@ -267,13 +268,29 @@ const Navbar = () => {
 
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="rounded-xl border border-white/10 bg-white/5 p-2 text-slate-300 hover:text-white hover:bg-white/10 transition"
+                            aria-label="Toggle navigation menu"
+                            aria-expanded={isOpen}
+                            className={`relative w-10 h-10 rounded-2xl flex flex-col items-center justify-center gap-1.5 transition-all duration-300 active:scale-95 border ${
+                                isOpen
+                                    ? "bg-violet-500/15 border-violet-500/30 text-white shadow-[0_0_15px_rgba(139,92,246,0.3)]"
+                                    : "bg-white/5 hover:bg-white/10 border-white/10 text-slate-300 hover:text-white"
+                            }`}
                         >
-                            {isOpen ? (
-                                <X className="w-6 h-6" />
-                            ) : (
-                                <Menu className="w-6 h-6" />
-                            )}
+                            <span
+                                className={`block h-0.5 w-5 rounded-full bg-current transition-all duration-300 ease-in-out ${
+                                    isOpen ? "rotate-45 translate-y-2" : ""
+                                }`}
+                            />
+                            <span
+                                className={`block h-0.5 w-5 rounded-full bg-current transition-all duration-300 ease-in-out ${
+                                    isOpen ? "opacity-0 scale-x-0" : "opacity-100"
+                                }`}
+                            />
+                            <span
+                                className={`block h-0.5 w-5 rounded-full bg-current transition-all duration-300 ease-in-out ${
+                                    isOpen ? "-rotate-45 -translate-y-2" : ""
+                                }`}
+                            />
                         </button>
 
                     </div>
@@ -282,78 +299,179 @@ const Navbar = () => {
             </div>
 
 
-            {/* MOBILE MENU */}
-            {isOpen && (
-                <div className="md:hidden border-t border-white/10 bg-[#0D0D0D]/95 backdrop-blur-xl">
+            {/* PROFESSIONAL ANIMATED MOBILE MENU */}
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        className="md:hidden overflow-hidden border-t border-white/10 bg-[#0D0D0D]/98 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] relative"
+                    >
+                        {/* Ambient subtle glow */}
+                        <div className="absolute top-0 right-0 w-64 h-32 bg-gradient-to-l from-violet-600/15 to-transparent blur-2xl pointer-events-none" />
 
-                    <div className="px-4 py-5 space-y-2">
-
-                        {/* Routes */}
-                        <Link
-                            href="/"
-                            onClick={() => setIsOpen(false)}
-                            className={`block rounded-xl px-4 py-3 transition ${pathname === "/"
-                                ? "bg-blue-500/10 text-blue-400"
-                                : "text-slate-300 hover:bg-white/5"
+                        <div className="px-4 py-5 space-y-2 relative z-10">
+                            {/* Routes */}
+                            <Link
+                                href="/"
+                                onClick={() => setIsOpen(false)}
+                                className={`group flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 ${
+                                    pathname === "/"
+                                        ? "bg-gradient-to-r from-violet-500/20 to-indigo-500/10 text-white border border-violet-500/25 shadow-sm"
+                                        : "text-slate-300 hover:text-white hover:bg-white/5"
                                 }`}
-                        >
-                            Home
-                        </Link>
+                            >
+                                <div className="flex items-center gap-3">
+                                    <span className={`p-2 rounded-lg transition-colors ${
+                                        pathname === "/" ? "bg-violet-500/20 text-violet-300" : "bg-white/5 text-slate-400 group-hover:text-white"
+                                    }`}>
+                                        <Home size={16} />
+                                    </span>
+                                    <span>Home</span>
+                                </div>
+                                {pathname === "/" ? (
+                                    <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
+                                ) : (
+                                    <ChevronRight size={14} className="text-slate-600 group-hover:text-slate-400 group-hover:translate-x-0.5 transition" />
+                                )}
+                            </Link>
 
-                        <Link
-                            href="/all-books"
-                            onClick={() => setIsOpen(false)}
-                            className={`block rounded-xl px-4 py-3 transition ${pathname === "/all-books"
-                                ? "bg-blue-500/10 text-blue-400"
-                                : "text-slate-300 hover:bg-white/5"
+                            <Link
+                                href="/all-books"
+                                onClick={() => setIsOpen(false)}
+                                className={`group flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 ${
+                                    pathname === "/all-books"
+                                        ? "bg-gradient-to-r from-violet-500/20 to-indigo-500/10 text-white border border-violet-500/25 shadow-sm"
+                                        : "text-slate-300 hover:text-white hover:bg-white/5"
                                 }`}
-                        >
-                            Browse Books
-                        </Link>
+                            >
+                                <div className="flex items-center gap-3">
+                                    <span className={`p-2 rounded-lg transition-colors ${
+                                        pathname === "/all-books" ? "bg-violet-500/20 text-violet-300" : "bg-white/5 text-slate-400 group-hover:text-white"
+                                    }`}>
+                                        <BookOpen size={16} />
+                                    </span>
+                                    <span>Browse Books</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-violet-500/15 text-violet-300 font-medium border border-violet-500/20">
+                                        Catalog
+                                    </span>
+                                    {pathname === "/all-books" ? (
+                                        <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
+                                    ) : (
+                                        <ChevronRight size={14} className="text-slate-600 group-hover:text-slate-400 group-hover:translate-x-0.5 transition" />
+                                    )}
+                                </div>
+                            </Link>
 
-                        <Link
-                            href="/about"
-                            onClick={() => setIsOpen(false)}
-                            className={`block rounded-xl px-4 py-3 transition ${pathname === "/about"
-                                ? "bg-blue-500/10 text-blue-400"
-                                : "text-slate-300 hover:bg-white/5"
+                            <Link
+                                href="/about"
+                                onClick={() => setIsOpen(false)}
+                                className={`group flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 ${
+                                    pathname === "/about"
+                                        ? "bg-gradient-to-r from-violet-500/20 to-indigo-500/10 text-white border border-violet-500/25 shadow-sm"
+                                        : "text-slate-300 hover:text-white hover:bg-white/5"
                                 }`}
-                        >
-                            About
-                        </Link>
+                            >
+                                <div className="flex items-center gap-3">
+                                    <span className={`p-2 rounded-lg transition-colors ${
+                                        pathname === "/about" ? "bg-violet-500/20 text-violet-300" : "bg-white/5 text-slate-400 group-hover:text-white"
+                                    }`}>
+                                        <Info size={16} />
+                                    </span>
+                                    <span>About</span>
+                                </div>
+                                {pathname === "/about" ? (
+                                    <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
+                                ) : (
+                                    <ChevronRight size={14} className="text-slate-600 group-hover:text-slate-400 group-hover:translate-x-0.5 transition" />
+                                )}
+                            </Link>
 
-                        {/* Divider */}
-                        <div className="my-4 border-t border-white/10" />
+                            {/* Divider */}
+                            <div className="my-3 border-t border-white/10" />
 
-                        {/* USER LOGIC */}
-                        {!user && (
+                            {/* User Section or Auth Buttons */}
+                            {user ? (
+                                <div className="pt-1 space-y-2">
+                                    {/* Compact User Card */}
+                                    <div className="p-3 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between">
+                                        <div className="flex items-center gap-3">
+                                            <Avatar size="sm">
+                                                <Avatar.Image src={user?.image} alt={user?.name} referrerPolicy="no-referrer" />
+                                                <Avatar.Fallback>{user?.name?.charAt(0)}</Avatar.Fallback>
+                                            </Avatar>
+                                            <div className="leading-tight overflow-hidden">
+                                                <p className="text-xs font-bold text-white truncate">{user?.name}</p>
+                                                <span className="text-[10px] text-purple-400 font-semibold uppercase tracking-wider">
+                                                    {user?.role}
+                                                </span>
+                                            </div>
+                                        </div>
 
-                            <>
-                                <Link
-                                    href="/signin"
-                                    onClick={() => setIsOpen(false)}
-                                    className="block"
-                                >
-                                    <button className="w-full rounded-xl border border-white/10 bg-white/5 py-3 text-white hover:bg-white/10">
-                                        Login
-                                    </button>
-                                </Link>
+                                        <Link
+                                            href={user?.role === "reader" ? "/dashboard/user" : user?.role === "librarian" ? "/dashboard/librarian" : user?.role === "admin" ? "/dashboard/admin" : "/"}
+                                            onClick={() => setIsOpen(false)}
+                                            className="px-3 py-1.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-sm"
+                                        >
+                                            <MdDashboard size={13} />
+                                            <span>Dashboard</span>
+                                        </Link>
+                                    </div>
 
-                                <Link
-                                    href="/signup"
-                                    onClick={() => setIsOpen(false)}
-                                    className="block"
-                                >
-                                    <button className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 py-3 font-medium text-white hover:opacity-90">
-                                        Signup
-                                    </button>
-                                </Link>
-                            </>
-                        )}
+                                    <div className="flex items-center gap-2 pt-1">
+                                        <Link
+                                            href="/profile"
+                                            onClick={() => setIsOpen(false)}
+                                            className="flex-1 py-2.5 px-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-medium text-slate-300 hover:text-white flex items-center justify-center gap-2 transition"
+                                        >
+                                            <CgProfile size={14} />
+                                            <span>Profile</span>
+                                        </Link>
+                                        <button
+                                            onClick={() => {
+                                                setIsOpen(false);
+                                                handleSignOut();
+                                            }}
+                                            className="flex-1 py-2.5 px-3 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 text-xs font-medium text-rose-300 flex items-center justify-center gap-2 transition cursor-pointer"
+                                        >
+                                            <BiLogOut size={14} />
+                                            <span>Logout</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="pt-2 flex flex-col gap-2.5">
+                                    <Link
+                                        href="/signin"
+                                        onClick={() => setIsOpen(false)}
+                                        className="block w-full"
+                                    >
+                                        <button className="w-full rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 py-3 text-xs sm:text-sm font-medium text-white flex items-center justify-center gap-2 transition">
+                                            <LogIn size={15} />
+                                            <span>Login</span>
+                                        </button>
+                                    </Link>
 
-                    </div>
-                </div>
-            )}
+                                    <Link
+                                        href="/signup"
+                                        onClick={() => setIsOpen(false)}
+                                        className="block w-full"
+                                    >
+                                        <button className="w-full rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 py-3 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-purple-500/20 flex items-center justify-center gap-2 transition">
+                                            <UserPlus size={15} />
+                                            <span>Create Account</span>
+                                        </button>
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
 
         </nav>

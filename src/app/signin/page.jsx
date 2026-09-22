@@ -154,8 +154,8 @@ const Signin = () => {
                 <LeftPanel />
 
                 {/* Right: original form card — markup identical */}
-                <div className="w-full p-8">
-                    <h2 className="text-3xl pb-2 md:hidden  text-center font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+                <div className="w-full p-6 sm:p-8">
+                    <h2 className="text-2xl sm:text-3xl pb-2 md:hidden text-center font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
                         Login Please !
                     </h2>
 

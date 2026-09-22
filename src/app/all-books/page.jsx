@@ -54,7 +54,7 @@ const AllBooks = async ({ searchParams }) => {
 
     return (
         <div className='max-w-7xl mx-auto'>
-            <h1 className="text-3xl mx-5 md:mx-0 pt-3 font-bold mb-8 text-transparent text-white drop-shadow-lg">
+            <h1 className="text-2xl sm:text-3xl mx-4 sm:mx-5 md:mx-0 pt-3 font-bold mb-6 sm:mb-8 text-white drop-shadow-lg">
                 Explore All Books
             </h1>
 
@@ -176,11 +176,11 @@ const AllBooks = async ({ searchParams }) => {
                                 📚
                             </div>
 
-                            <h2 className="text-2xl font-bold text-white">
+                            <h2 className="text-xl sm:text-2xl font-bold text-white">
                                 No Matching Books Found
                             </h2>
 
-                            <p className="text-slate-400 mt-3 max-w-md">
+                            <p className="text-slate-400 mt-2 sm:mt-3 text-xs sm:text-sm md:text-base max-w-md">
                                 No books match your current search or selected filters.
                                 Try adjusting your search criteria or clear all filters to explore available books.
                             </p>
@@ -189,13 +189,14 @@ const AllBooks = async ({ searchParams }) => {
                                 href="/all-books"
                                 className="
                     mt-6
-                    px-6
-                    py-3
+                    px-5 sm:px-6
+                    py-2.5 sm:py-3
                     rounded-2xl
                     bg-gradient-to-r
                     from-violet-600
                     to-indigo-600
                     text-white
+                    text-sm sm:text-base
                     font-semibold
                     hover:scale-105
                     transition-all

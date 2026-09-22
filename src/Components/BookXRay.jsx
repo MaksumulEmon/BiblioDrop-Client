@@ -206,20 +206,20 @@ export const BookXRay = ({ bookId, book }) => {
     };
 
     return (
-        <section className="mt-8 rounded-3xl border border-violet-500/20 bg-gradient-to-b from-slate-900/90 via-slate-900/60 to-slate-950/90 backdrop-blur-xl p-6 md:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.4)] relative overflow-hidden">
+        <section className="mt-8 rounded-3xl border border-violet-500/20 bg-gradient-to-b from-slate-900/90 via-slate-900/60 to-slate-950/90 backdrop-blur-xl p-5 sm:p-6 md:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.4)] relative overflow-hidden">
             {/* Background subtle neon glows */}
             <div className="absolute top-0 right-0 w-80 h-80 bg-violet-600/10 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
 
             {/* Header Badge */}
-            <div className="relative flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/10">
+            <div className="relative flex flex-wrap items-center justify-between gap-4 pb-5 sm:pb-6 border-b border-white/10">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-violet-500/30">
-                        <Sparkles className="w-5 h-5 animate-pulse" />
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-violet-500/30 shrink-0">
+                        <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 animate-pulse" />
                     </div>
                     <div>
                         <div className="flex items-center gap-2">
-                            <h2 className="text-xl md:text-2xl font-bold text-white tracking-tight">
+                            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white tracking-tight">
                                 AI Book X-Ray & Voice Intelligence
                             </h2>
                             <span className="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-violet-500/10 text-violet-300 border border-violet-500/20">

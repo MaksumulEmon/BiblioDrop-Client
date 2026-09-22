@@ -129,16 +129,16 @@ const cardVariants = {
 
 const TopLibrarians = () => {
     return (
-        <section className="py-14 px-4 max-w-6xl mx-auto">
+        <section className="py-10 sm:py-14 px-4 max-w-6xl mx-auto">
             <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
                 className="
-                    text-2xl md:text-3xl
+                    text-xl sm:text-2xl md:text-3xl
                     font-bold
-                    mb-10
+                    mb-6 sm:mb-10
                     bg-gradient-to-r
                     from-violet-500
                     to-indigo-500
@@ -154,7 +154,7 @@ const TopLibrarians = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
-                className="grid grid-cols-1 md:grid-cols-3 gap-8"
+                className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8"
             >
                 {topLibrarians.map((user, index) => (
                     <motion.div
@@ -166,8 +166,8 @@ const TopLibrarians = () => {
                         }}
                         className="
                             group
-                            flex items-center gap-5
-                            p-8
+                            flex items-center gap-4 sm:gap-5
+                            p-5 sm:p-8
                             rounded-3xl
                             border border-slate-800
                             bg-slate-900/70
@@ -185,6 +185,7 @@ const TopLibrarians = () => {
                                 width={80}
                                 height={80}
                                 className="
+        w-16 h-16 sm:w-20 sm:h-20
         rounded-full
         object-cover
         border-2 border-slate-700
@@ -195,14 +196,14 @@ const TopLibrarians = () => {
 
                             <div className="
                                 absolute -bottom-1 -right-1
-                                w-7 h-7
+                                w-6 h-6 sm:w-7 sm:h-7
                                 rounded-full
                                 bg-gradient-to-r
                                 from-violet-600
                                 to-indigo-600
                                 text-white
                                 flex items-center justify-center
-                                text-xs font-bold
+                                text-[10px] sm:text-xs font-bold
                             ">
                                 #{index + 1}
                             </div>
@@ -210,16 +211,16 @@ const TopLibrarians = () => {
 
                         {/* Info */}
                         <div className="flex-1">
-                            <h3 className="text-lg text-white font-bold">
+                            <h3 className="text-base sm:text-lg text-white font-bold">
                                 {user.name}
                             </h3>
 
-                            <p className="text-slate-400 mt-1 text-sm">
+                            <p className="text-slate-400 mt-0.5 sm:mt-1 text-xs sm:text-sm">
                                 Completed Deliveries
                             </p>
 
                             <p className="
-                                text-2xl font-extrabold mt-2
+                                text-xl sm:text-2xl font-extrabold mt-1 sm:mt-2
                                 bg-gradient-to-r
                                 from-violet-500
                                 to-indigo-500

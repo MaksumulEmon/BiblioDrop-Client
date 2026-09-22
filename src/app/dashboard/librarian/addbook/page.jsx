@@ -193,14 +193,14 @@ export default function AddBook() {
             {/* Page Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h2 className="text-3xl font-extrabold text-white flex items-center gap-3">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white flex flex-wrap items-center gap-2 sm:gap-3">
                         Add New Book
-                        <span className="text-xs px-3 py-1 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center gap-1 font-semibold">
+                        <span className="text-[10px] sm:text-xs px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center gap-1 font-semibold">
                             <Sparkles size={12} className="text-purple-400" />
                             Multimodal AI Powered
                         </span>
                     </h2>
-                    <p className="text-slate-400 mt-2">
+                    <p className="text-slate-400 mt-1 sm:mt-2 text-xs sm:text-sm">
                         Add a new book to your library. Upload a cover photo to let Gemini Vision auto-fill title, author, and description in seconds!
                     </p>
                 </div>

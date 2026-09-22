@@ -317,7 +317,7 @@ export default function Banner() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 }}
-                            className="text-5xl md:text-7xl font-bold leading-tight text-white"
+                            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-white"
                         >
                             Find Your Next
                             <span className="block bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
@@ -329,7 +329,7 @@ export default function Banner() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3 }}
-                            className="mt-6 text-lg text-slate-400 max-w-xl leading-relaxed"
+                            className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg text-slate-400 max-w-xl leading-relaxed"
                         >
                             Discover thousands of books from libraries and independent
                             owners. Borrow books instantly and enjoy doorstep delivery.
@@ -339,18 +339,18 @@ export default function Banner() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4 }}
-                            className="mt-10 flex flex-wrap gap-4"
+                            className="mt-8 sm:mt-10 flex flex-wrap gap-3 sm:gap-4"
                         >
                             <Link
                                 href="/all-books"
-                                className="rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-7 py-3 text-white font-medium transition hover:scale-105"
+                                className="rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-5 py-2.5 sm:px-7 sm:py-3 text-sm sm:text-base text-white font-medium transition hover:scale-105"
                             >
                                 Browse Books
                             </Link>
 
                             <Link
                                 href="/about"
-                                className="rounded-xl border border-white/10 bg-white/5 px-7 py-3 text-white hover:bg-white/10 transition"
+                                className="rounded-xl border border-white/10 bg-white/5 px-5 py-2.5 sm:px-7 sm:py-3 text-sm sm:text-base text-white hover:bg-white/10 transition"
                             >
                                 Learn More
                             </Link>
@@ -361,21 +361,21 @@ export default function Banner() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5 }}
-                            className="mt-12 flex flex-wrap gap-4"
+                            className="mt-8 sm:mt-12 flex flex-wrap gap-3 sm:gap-4"
                         >
-                            <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-5">
-                                <h3 className="text-2xl font-bold text-blue-400">2,400+</h3>
-                                <p className="text-sm text-slate-400">Books</p>
+                            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3.5 sm:px-6 sm:py-5">
+                                <h3 className="text-xl sm:text-2xl font-bold text-blue-400">2,400+</h3>
+                                <p className="text-xs sm:text-sm text-slate-400">Books</p>
                             </div>
 
-                            <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-5">
-                                <h3 className="text-2xl font-bold text-blue-400">180+</h3>
-                                <p className="text-sm text-slate-400">Libraries</p>
+                            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3.5 sm:px-6 sm:py-5">
+                                <h3 className="text-xl sm:text-2xl font-bold text-blue-400">180+</h3>
+                                <p className="text-xs sm:text-sm text-slate-400">Libraries</p>
                             </div>
 
-                            <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-5">
-                                <h3 className="text-2xl font-bold text-blue-400">12K+</h3>
-                                <p className="text-sm text-slate-400">Readers</p>
+                            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3.5 sm:px-6 sm:py-5">
+                                <h3 className="text-xl sm:text-2xl font-bold text-blue-400">12K+</h3>
+                                <p className="text-xs sm:text-sm text-slate-400">Readers</p>
                             </div>
                         </motion.div>
 

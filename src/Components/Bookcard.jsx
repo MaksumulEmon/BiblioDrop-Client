@@ -69,7 +69,7 @@ const Bookcard = ({ bookData }) => {
 
                     <div className="p-4">
 
-                        <h2 className="text-lg font-bold text-white line-clamp-1 group-hover:text-violet-400 transition">
+                        <h2 className="text-base sm:text-lg font-bold text-white line-clamp-1 group-hover:text-violet-400 transition">
                             {book.title}
                         </h2>
 

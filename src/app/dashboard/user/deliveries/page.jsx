@@ -98,11 +98,11 @@ export default function UserDeliveries() {
     return (
         <div className="space-y-8">
             <div>
-                <h1 className="text-3xl font-extrabold text-white">Delivery History</h1>
-                <p className="text-slate-400 mt-2">Track the dispatch and delivery status of your purchased books.</p>
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-white">Delivery History</h1>
+                <p className="text-slate-400 mt-1 sm:mt-2 text-xs sm:text-sm">Track the dispatch and delivery status of your purchased books.</p>
             </div>
 
-            <div className="bg-slate-900/60 border border-white/10 rounded-3xl p-6 backdrop-blur-xl shadow-xl overflow-hidden">
+            <div className="bg-slate-900/60 border border-white/10 rounded-3xl p-4 sm:p-6 backdrop-blur-xl shadow-xl overflow-hidden">
                 {deliveries.length === 0 ? (
                     <div className="text-center py-12 text-slate-500">
                         <Truck size={48} className="mx-auto mb-4 opacity-50" />

@@ -184,42 +184,42 @@ export default function AdminOverview() {
                 </span>
 
                 <div>
-                    <h1 className="text-3xl font-extrabold text-white">
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
                         Admin Control Center
                     </h1>
 
-                    <p className="text-slate-400 mt-1">
+                    <p className="text-slate-400 text-xs sm:text-sm mt-1">
                         Platform overview and core administration metrics.
                     </p>
                 </div>
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 {cards.map((card, idx) => {
                     const Icon = card.icon;
 
                     return (
                         <div
                             key={idx}
-                            className={`relative overflow-hidden rounded-3xl p-6 border bg-gradient-to-br ${card.bg} backdrop-blur-xl shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl`}
+                            className={`relative overflow-hidden rounded-3xl p-5 sm:p-6 border bg-gradient-to-br ${card.bg} backdrop-blur-xl shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl`}
                         >
                             <div className="flex items-center justify-between">
-                                <div className="p-3 bg-white/5 border border-white/10 rounded-2xl">
-                                    <Icon className={`w-6 h-6 ${card.color}`} />
+                                <div className="p-2.5 sm:p-3 bg-white/5 border border-white/10 rounded-2xl">
+                                    <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${card.color}`} />
                                 </div>
 
-                                <span className="text-xs text-slate-500 uppercase tracking-widest font-semibold">
+                                <span className="text-[10px] sm:text-xs text-slate-500 uppercase tracking-widest font-semibold">
                                     Active
                                 </span>
                             </div>
 
                             <div className="mt-4">
-                                <p className="text-sm font-semibold text-slate-400">
+                                <p className="text-xs sm:text-sm font-semibold text-slate-400">
                                     {card.label}
                                 </p>
 
-                                <h3 className="text-3xl font-extrabold text-white mt-2">
+                                <h3 className="text-2xl sm:text-3xl font-extrabold text-white mt-1 sm:mt-2">
                                     {card.value}
                                 </h3>
                             </div>
@@ -229,17 +229,17 @@ export default function AdminOverview() {
             </div>
 
             {/* AI Order Anomaly Detection Section */}
-            <div className="bg-slate-900/70 border border-purple-500/20 rounded-3xl p-6 backdrop-blur-xl relative overflow-hidden shadow-xl">
+            <div className="bg-slate-900/70 border border-purple-500/20 rounded-3xl p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden shadow-xl">
                 <div className="absolute top-0 right-0 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 relative">
                     <div className="flex items-center gap-3">
-                        <span className="p-2.5 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 border border-purple-500/30 rounded-2xl text-purple-400">
-                            <ShieldAlert className="w-6 h-6" />
+                        <span className="p-2.5 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 border border-purple-500/30 rounded-2xl text-purple-400 shrink-0">
+                            <ShieldAlert className="w-5 h-5 sm:w-6 sm:h-6" />
                         </span>
                         <div>
                             <div className="flex items-center gap-2">
-                                <h2 className="text-xl md:text-2xl font-bold text-white">
+                                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white">
                                     AI Order Anomaly Detection
                                 </h2>
                                 <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">
@@ -262,18 +262,18 @@ export default function AdminOverview() {
                 </div>
 
                 {/* Quick Summary Counts */}
-                <div className="grid grid-cols-3 gap-3 mb-5">
-                    <div className="p-3.5 rounded-2xl bg-slate-950/60 border border-white/5">
-                        <span className="text-[11px] text-slate-400 block">Total Flagged</span>
-                        <span className="text-xl font-extrabold text-white mt-0.5 block">{anomalySummary.totalFlagged || 0}</span>
+                <div className="grid grid-cols-3 gap-2.5 sm:gap-3 mb-5">
+                    <div className="p-3 sm:p-3.5 rounded-2xl bg-slate-950/60 border border-white/5">
+                        <span className="text-[10px] sm:text-[11px] text-slate-400 block truncate">Total Flagged</span>
+                        <span className="text-lg sm:text-xl font-extrabold text-white mt-0.5 block">{anomalySummary.totalFlagged || 0}</span>
                     </div>
-                    <div className="p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/20">
-                        <span className="text-[11px] text-rose-300 block">High Severity</span>
-                        <span className="text-xl font-extrabold text-rose-400 mt-0.5 block">{anomalySummary.highSeverityCount || 0}</span>
+                    <div className="p-3 sm:p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/20">
+                        <span className="text-[10px] sm:text-[11px] text-rose-300 block truncate">High Severity</span>
+                        <span className="text-lg sm:text-xl font-extrabold text-rose-400 mt-0.5 block">{anomalySummary.highSeverityCount || 0}</span>
                     </div>
-                    <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20">
-                        <span className="text-[11px] text-amber-300 block">Pending Review</span>
-                        <span className="text-xl font-extrabold text-amber-400 mt-0.5 block">{anomalySummary.pendingReviewCount || 0}</span>
+                    <div className="p-3 sm:p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20">
+                        <span className="text-[10px] sm:text-[11px] text-amber-300 block truncate">Pending Review</span>
+                        <span className="text-lg sm:text-xl font-extrabold text-amber-400 mt-0.5 block">{anomalySummary.pendingReviewCount || 0}</span>
                     </div>
                 </div>
 
@@ -326,11 +326,11 @@ export default function AdminOverview() {
             <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
 
                 <div className="mb-6">
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white">
                         Books By Category
                     </h2>
 
-                    <p className="text-slate-400 text-sm mt-1">
+                    <p className="text-slate-400 text-xs sm:text-sm mt-1">
                         Distribution of books across different categories.
                     </p>
                 </div>

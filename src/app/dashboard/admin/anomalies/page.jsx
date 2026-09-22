@@ -228,30 +228,30 @@ export default function AdminAnomaliesPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                    <span className="p-3 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 border border-purple-500/30 rounded-2xl text-purple-400 shadow-lg shadow-purple-500/10">
-                        <ShieldAlert size={28} />
+                    <span className="p-2.5 sm:p-3 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 border border-purple-500/30 rounded-2xl text-purple-400 shadow-lg shadow-purple-500/10 shrink-0">
+                        <ShieldAlert className="w-5 h-5 sm:w-7 sm:h-7" />
                     </span>
                     <div>
                         <div className="flex items-center gap-2">
-                            <h1 className="text-2xl md:text-3xl font-extrabold text-white">
+                            <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white">
                                 AI Order Anomaly Detection
                             </h1>
-                            <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-300 border border-purple-500/20">
+                            <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold bg-purple-500/10 text-purple-300 border border-purple-500/20">
                                 Gemini 1.5
                             </span>
                         </div>
-                        <p className="text-slate-400 text-sm mt-0.5">
+                        <p className="text-slate-400 text-xs sm:text-sm mt-0.5">
                             Automated detection of daily order limits, repeated cancellations, and checkout payment failures.
                         </p>
                     </div>
                 </div>
 
                 {/* Top Action Buttons */}
-                <div className="flex items-center gap-2.5 flex-wrap">
+                <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap">
                     <button
                         onClick={() => loadData(true)}
                         disabled={refreshing}
-                        className="px-3.5 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-white/10 text-slate-200 text-xs font-semibold flex items-center gap-2 transition disabled:opacity-50"
+                        className="px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-white/10 text-slate-200 text-xs font-semibold flex items-center gap-2 transition disabled:opacity-50"
                         title="Re-run anomaly scan"
                     >
                         <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? "animate-spin text-purple-400" : ""}`} />
@@ -261,7 +261,7 @@ export default function AdminAnomaliesPage() {
                     <button
                         onClick={handleSeedDemo}
                         disabled={seeding}
-                        className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-lg shadow-purple-500/20 disabled:opacity-50"
+                        className="px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-lg shadow-purple-500/20 disabled:opacity-50"
                         title="Generate sample anomalous users for evaluation/demo"
                     >
                         <Sparkles className="w-3.5 h-3.5" />
@@ -271,7 +271,7 @@ export default function AdminAnomaliesPage() {
                     <button
                         onClick={handleClearDemo}
                         disabled={seeding}
-                        className="px-3 py-2 rounded-xl bg-slate-900 hover:bg-rose-950/30 border border-slate-700 hover:border-rose-500/30 text-slate-400 hover:text-rose-300 text-xs transition"
+                        className="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-slate-900 hover:bg-rose-950/30 border border-slate-700 hover:border-rose-500/30 text-slate-400 hover:text-rose-300 text-xs transition"
                         title="Remove demo user records"
                     >
                         Clear Demo
@@ -280,8 +280,8 @@ export default function AdminAnomaliesPage() {
             </div>
 
             {/* Non-punitive Policy Banner */}
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-950/40 via-slate-900/60 to-indigo-950/40 border border-purple-500/20 flex items-start gap-3 text-xs md:text-sm text-slate-300">
-                <Info className="w-5 h-5 text-purple-400 shrink-0 mt-0.5" />
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-purple-950/40 via-slate-900/60 to-indigo-950/40 border border-purple-500/20 flex items-start gap-2.5 sm:gap-3 text-xs sm:text-sm text-slate-300">
+                <Info className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 shrink-0 mt-0.5" />
                 <div className="leading-relaxed">
                     <span className="font-semibold text-purple-200">BiblioDrop Administrative Review Standard: </span>
                     Unusual activities flagged by deterministic rules (e.g., daily order cap reached, $\ge 2$ cancellations, $\ge 2$ failed payments) are analyzed by Gemini AI to help administrators understand behavior patterns.
@@ -290,49 +290,49 @@ export default function AdminAnomaliesPage() {
             </div>
 
             {/* Summary Stat Cards */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                <div className="p-5 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+                <div className="p-4 sm:p-5 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl">
                     <div className="flex items-center justify-between">
-                        <span className="text-xs font-semibold text-slate-400">Total Flagged Users</span>
+                        <span className="text-[11px] sm:text-xs font-semibold text-slate-400">Total Flagged Users</span>
                         <User className="w-4 h-4 text-purple-400" />
                     </div>
-                    <div className="text-2xl md:text-3xl font-extrabold text-white mt-2">
+                    <div className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white mt-1 sm:mt-2">
                         {summary.totalFlagged}
                     </div>
-                    <div className="text-xs text-slate-500 mt-1">Requiring administrative attention</div>
+                    <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Requiring attention</div>
                 </div>
 
-                <div className="p-5 rounded-3xl bg-slate-900/60 border border-rose-500/20 backdrop-blur-xl">
+                <div className="p-4 sm:p-5 rounded-3xl bg-slate-900/60 border border-rose-500/20 backdrop-blur-xl">
                     <div className="flex items-center justify-between">
-                        <span className="text-xs font-semibold text-rose-300">High Risk Patterns</span>
+                        <span className="text-[11px] sm:text-xs font-semibold text-rose-300">High Risk Patterns</span>
                         <AlertTriangle className="w-4 h-4 text-rose-400 animate-pulse" />
                     </div>
-                    <div className="text-2xl md:text-3xl font-extrabold text-rose-400 mt-2">
+                    <div className="text-xl sm:text-2xl md:text-3xl font-extrabold text-rose-400 mt-1 sm:mt-2">
                         {summary.highSeverityCount}
                     </div>
-                    <div className="text-xs text-slate-500 mt-1">Multi-pattern volatility</div>
+                    <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Multi-pattern volatility</div>
                 </div>
 
-                <div className="p-5 rounded-3xl bg-slate-900/60 border border-amber-500/20 backdrop-blur-xl">
+                <div className="p-4 sm:p-5 rounded-3xl bg-slate-900/60 border border-amber-500/20 backdrop-blur-xl">
                     <div className="flex items-center justify-between">
-                        <span className="text-xs font-semibold text-amber-300">Pending Review</span>
+                        <span className="text-[11px] sm:text-xs font-semibold text-amber-300">Pending Review</span>
                         <Clock className="w-4 h-4 text-amber-400" />
                     </div>
-                    <div className="text-2xl md:text-3xl font-extrabold text-amber-400 mt-2">
+                    <div className="text-xl sm:text-2xl md:text-3xl font-extrabold text-amber-400 mt-1 sm:mt-2">
                         {summary.pendingReviewCount}
                     </div>
-                    <div className="text-xs text-slate-500 mt-1">Awaiting admin assessment</div>
+                    <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Awaiting assessment</div>
                 </div>
 
-                <div className="p-5 rounded-3xl bg-slate-900/60 border border-emerald-500/20 backdrop-blur-xl">
+                <div className="p-4 sm:p-5 rounded-3xl bg-slate-900/60 border border-emerald-500/20 backdrop-blur-xl">
                     <div className="flex items-center justify-between">
-                        <span className="text-xs font-semibold text-emerald-300">Reviewed Cases</span>
+                        <span className="text-[11px] sm:text-xs font-semibold text-emerald-300">Reviewed Cases</span>
                         <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                     </div>
-                    <div className="text-2xl md:text-3xl font-extrabold text-emerald-400 mt-2">
+                    <div className="text-xl sm:text-2xl md:text-3xl font-extrabold text-emerald-400 mt-1 sm:mt-2">
                         {summary.reviewedCount}
                     </div>
-                    <div className="text-xs text-slate-500 mt-1">Archived & confirmed</div>
+                    <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Archived & confirmed</div>
                 </div>
             </div>
 

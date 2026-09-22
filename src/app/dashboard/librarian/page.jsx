@@ -127,30 +127,30 @@ export default function LibrarianOverview() {
     return (
         <div className="space-y-8">
             <div>
-                <h1 className="text-3xl font-extrabold text-white">
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
                     Librarian Dashboard
                 </h1>
-                <p className="text-slate-400 mt-2">
+                <p className="text-slate-400 mt-1 sm:mt-2 text-xs sm:text-sm">
                     Overview of books, publishing queue, earnings, and delivery stats.
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-4">
                 {cards.map((card, idx) => {
                     const Icon = card.icon;
                     return (
                         <div
                             key={idx}
-                            className={`relative overflow-hidden rounded-3xl p-5 border bg-gradient-to-br ${card.bg} backdrop-blur-xl shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl`}
+                            className={`relative overflow-hidden rounded-3xl p-4 sm:p-5 border bg-gradient-to-br ${card.bg} backdrop-blur-xl shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl`}
                         >
                             <div className="flex items-center justify-between">
-                                <div className="p-2.5 bg-white/5 border border-white/10 rounded-xl">
-                                    <Icon className={`w-5 h-5 ${card.color}`} />
+                                <div className="p-2 sm:p-2.5 bg-white/5 border border-white/10 rounded-xl">
+                                    <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${card.color}`} />
                                 </div>
                             </div>
-                            <div className="mt-4">
+                            <div className="mt-3 sm:mt-4">
                                 <p className="text-xs font-semibold text-slate-400">{card.label}</p>
-                                <h3 className="text-2xl font-extrabold text-white mt-1">
+                                <h3 className="text-xl sm:text-2xl font-extrabold text-white mt-0.5 sm:mt-1">
                                     {card.value}
                                 </h3>
                             </div>

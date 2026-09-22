@@ -20,13 +20,13 @@ const AboutPage = () => {
                     About BiblioDrop
                 </div>
 
-                <h1 className="text-4xl md:text-6xl font-black text-white leading-tight">
+                <h1 className="text-2xl sm:text-4xl md:text-6xl font-black text-white leading-tight">
                     Bringing Books
                     <span className="text-purple-500"> Closer </span>
                     To Readers
                 </h1>
 
-                <p className="max-w-3xl mx-auto mt-6 text-slate-400 text-lg leading-8">
+                <p className="max-w-3xl mx-auto mt-4 sm:mt-6 text-slate-400 text-sm sm:text-base md:text-lg leading-relaxed sm:leading-8">
                     BiblioDrop is a modern online book borrowing and delivery
                     management platform designed to connect readers, librarians,
                     and administrators through a seamless digital experience.
@@ -34,13 +34,13 @@ const AboutPage = () => {
             </div>
 
             {/* Mission */}
-            <div className="bg-slate-900 border border-white/10 rounded-3xl p-8 mb-12">
+            <div className="bg-slate-900 border border-white/10 rounded-3xl p-6 sm:p-8 mb-8 sm:mb-12">
 
-                <h2 className="text-3xl font-bold text-white mb-4">
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">
                     Our Mission
                 </h2>
 
-                <p className="text-slate-400 leading-8">
+                <p className="text-slate-400 text-sm sm:text-base leading-relaxed sm:leading-8">
                     Our mission is to make books more accessible for everyone.
                     We help libraries manage their inventory digitally while
                     enabling readers to discover, request, and receive books
@@ -50,9 +50,9 @@ const AboutPage = () => {
             </div>
 
             {/* Features */}
-            <div className="mb-20">
+            <div className="mb-12 sm:mb-20">
 
-                <h2 className="text-3xl font-bold text-white text-center mb-10">
+                <h2 className="text-2xl sm:text-3xl font-bold text-white text-center mb-6 sm:mb-10">
                     Platform Features
                 </h2>
 
@@ -103,20 +103,20 @@ const AboutPage = () => {
             </div>
 
             {/* Roles */}
-            <div className="mb-20">
+            <div className="mb-12 sm:mb-20">
 
-                <h2 className="text-3xl font-bold text-white text-center mb-10">
+                <h2 className="text-2xl sm:text-3xl font-bold text-white text-center mb-6 sm:mb-10">
                     User Roles
                 </h2>
 
                 <div className="grid md:grid-cols-3 gap-6">
 
                     <div className="bg-slate-900 border border-white/10 rounded-3xl p-6">
-                        <h3 className="text-xl font-bold text-indigo-400 mb-4">
+                        <h3 className="text-lg sm:text-xl font-bold text-indigo-400 mb-3 sm:mb-4">
                             Reader
                         </h3>
 
-                        <ul className="space-y-2 text-slate-400">
+                        <ul className="space-y-2 text-slate-400 text-sm">
                             <li>• Browse Books</li>
                             <li>• Request Delivery</li>
                             <li>• Track Requests</li>
@@ -125,11 +125,11 @@ const AboutPage = () => {
                     </div>
 
                     <div className="bg-slate-900 border border-white/10 rounded-3xl p-6">
-                        <h3 className="text-xl font-bold text-pink-400 mb-4">
+                        <h3 className="text-lg sm:text-xl font-bold text-pink-400 mb-3 sm:mb-4">
                             Librarian
                         </h3>
 
-                        <ul className="space-y-2 text-slate-400">
+                        <ul className="space-y-2 text-slate-400 text-sm">
                             <li>• Add New Books</li>
                             <li>• Manage Inventory</li>
                             <li>• Update Book Status</li>
@@ -138,11 +138,11 @@ const AboutPage = () => {
                     </div>
 
                     <div className="bg-slate-900 border border-white/10 rounded-3xl p-6">
-                        <h3 className="text-xl font-bold text-yellow-400 mb-4">
+                        <h3 className="text-lg sm:text-xl font-bold text-yellow-400 mb-3 sm:mb-4">
                             Admin
                         </h3>
 
-                        <ul className="space-y-2 text-slate-400">
+                        <ul className="space-y-2 text-slate-400 text-sm">
                             <li>• Approve Books</li>
                             <li>• Manage Users</li>
                             <li>• Monitor Activities</li>
@@ -155,40 +155,40 @@ const AboutPage = () => {
             </div>
 
             {/* Stats */}
-            <div className="grid md:grid-cols-4 gap-6 mb-20">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-20">
 
-                <div className="bg-slate-900 border border-white/10 rounded-3xl p-6 text-center">
-                    <h3 className="text-4xl font-black text-purple-500">
+                <div className="bg-slate-900 border border-white/10 rounded-3xl p-4 sm:p-6 text-center">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-purple-500">
                         10K+
                     </h3>
-                    <p className="text-slate-400 mt-2">
+                    <p className="text-slate-400 text-xs sm:text-sm mt-1 sm:mt-2">
                         Books Available
                     </p>
                 </div>
 
-                <div className="bg-slate-900 border border-white/10 rounded-3xl p-6 text-center">
-                    <h3 className="text-4xl font-black text-purple-500">
+                <div className="bg-slate-900 border border-white/10 rounded-3xl p-4 sm:p-6 text-center">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-purple-500">
                         500+
                     </h3>
-                    <p className="text-slate-400 mt-2">
+                    <p className="text-slate-400 text-xs sm:text-sm mt-1 sm:mt-2">
                         Active Readers
                     </p>
                 </div>
 
-                <div className="bg-slate-900 border border-white/10 rounded-3xl p-6 text-center">
-                    <h3 className="text-4xl font-black text-purple-500">
+                <div className="bg-slate-900 border border-white/10 rounded-3xl p-4 sm:p-6 text-center">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-purple-500">
                         50+
                     </h3>
-                    <p className="text-slate-400 mt-2">
+                    <p className="text-slate-400 text-xs sm:text-sm mt-1 sm:mt-2">
                         Librarians
                     </p>
                 </div>
 
-                <div className="bg-slate-900 border border-white/10 rounded-3xl p-6 text-center">
-                    <h3 className="text-4xl font-black text-purple-500">
+                <div className="bg-slate-900 border border-white/10 rounded-3xl p-4 sm:p-6 text-center">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-purple-500">
                         1200+
                     </h3>
-                    <p className="text-slate-400 mt-2">
+                    <p className="text-slate-400 text-xs sm:text-sm mt-1 sm:mt-2">
                         Deliveries
                     </p>
                 </div>
@@ -196,18 +196,18 @@ const AboutPage = () => {
             </div>
 
             {/* CTA */}
-            <div className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 border border-purple-500/20 rounded-3xl p-10 text-center">
+            <div className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 border border-purple-500/20 rounded-3xl p-6 sm:p-10 text-center">
 
                 <Users
-                    size={50}
-                    className="mx-auto text-purple-400 mb-4"
+                    size={40}
+                    className="mx-auto text-purple-400 mb-3 sm:mb-4"
                 />
 
-                <h2 className="text-3xl font-bold text-white mb-4">
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">
                     Join The Reading Community
                 </h2>
 
-                <p className="text-slate-400 max-w-2xl mx-auto">
+                <p className="text-slate-400 text-xs sm:text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
                     Discover books, connect with libraries, and enjoy a
                     smarter reading experience through BiblioDrop.
                 </p>

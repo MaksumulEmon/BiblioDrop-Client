@@ -22,15 +22,15 @@ const FeaturedBooksMarquee = async () => {
                 <div className="flex items-center justify-between flex-wrap gap-5">
 
                     <div>
-                        <span className="text-violet-400 text-sm font-semibold uppercase tracking-[3px]">
+                        <span className="text-violet-400 text-xs sm:text-sm font-semibold uppercase tracking-[2px] sm:tracking-[3px]">
                             Featured Collection
                         </span>
 
-                        <h2 className="mt-3 text-3xl md:text-5xl font-extrabold text-white">
+                        <h2 className="mt-2 sm:mt-3 text-2xl sm:text-3xl md:text-5xl font-extrabold text-white">
                             Discover Popular Books
                         </h2>
 
-                        <p className="mt-4 max-w-2xl text-slate-400">
+                        <p className="mt-3 sm:mt-4 max-w-2xl text-xs sm:text-sm md:text-base text-slate-400 leading-relaxed">
                             Explore our hand-picked collection of the most
                             popular books available for delivery. Browse,
                             discover, and enjoy your next favorite read.

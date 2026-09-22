@@ -178,13 +178,16 @@ const DashboardSideBar = () => {
 
                     <button
                         onClick={() => setIsOpen(true)}
-                        className="p-2 rounded-xl bg-white/5 border border-white/10 text-white"
+                        aria-label="Open sidebar menu"
+                        className="w-10 h-10 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-violet-500/30 flex flex-col items-center justify-center gap-1.5 transition-all duration-300 active:scale-95 text-slate-200 hover:text-white"
                     >
-                        <Menu size={20} />
+                        <span className="block h-0.5 w-5 rounded-full bg-current transition-all" />
+                        <span className="block h-0.5 w-3.5 -translate-x-[3px] rounded-full bg-current transition-all" />
+                        <span className="block h-0.5 w-5 rounded-full bg-current transition-all" />
                     </button>
 
                     <Link href="/" className="flex items-center gap-2">
-                        <span className="text-xl font-bold">
+                        <span className="text-lg sm:text-xl font-bold">
                             <span className="text-white">Biblio</span>
                             <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
                                 Drop
@@ -249,13 +252,15 @@ const DashboardSideBar = () => {
 
                 <div className="h-full flex flex-col bg-[#111827]">
 
-                    {/* Mobile Close */}
-                    <div className="lg:hidden flex justify-end p-4">
+                    {/* Mobile Close Header */}
+                    <div className="lg:hidden flex justify-between items-center p-4 border-b border-white/5">
+                        <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Navigation Menu</span>
                         <button
                             onClick={() => setIsOpen(false)}
-                            className="text-white"
+                            aria-label="Close sidebar menu"
+                            className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer"
                         >
-                            <X size={24} />
+                            <X size={18} />
                         </button>
                     </div>
 

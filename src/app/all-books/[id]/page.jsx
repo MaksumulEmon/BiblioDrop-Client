@@ -125,16 +125,16 @@ const DetailsPage = async ({ params, searchParams }) => {
                     {/* Book Details */}
                     <div className="lg:col-span-2">
 
-                        <div className="bg-slate-900/60 backdrop-blur-xl rounded-3xl border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.5)] p-8">
+                        <div className="bg-slate-900/60 backdrop-blur-xl rounded-3xl border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.5)] p-5 sm:p-8">
 
-                            <div className="flex flex-wrap gap-3 mb-5">
+                            <div className="flex flex-wrap gap-2.5 sm:gap-3 mb-4 sm:mb-5">
 
-                                <span className="px-4 py-1 rounded-full bg-violet-600 text-sm">
+                                <span className="px-3 sm:px-4 py-1 rounded-full bg-violet-600 text-xs sm:text-sm">
                                     {book?.category}
                                 </span>
 
                                 <span
-                                    className={`px-4 py-1 rounded-full text-sm ${book?.status === "approved"
+                                    className={`px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm ${book?.status === "approved"
                                         ? "bg-green-500"
                                         : book?.status === "rejected"
                                             ? "bg-red-500"
@@ -145,21 +145,21 @@ const DetailsPage = async ({ params, searchParams }) => {
                                 </span>
 
                             </div>
-                            <h1 className="text-3xl  font-bold leading-tight  font-extrabold leading-tight bg-gradient-to-r from-white via-violet-200 to-violet-400 bg-clip-text text-transparentf bg-clip-text text-transparent">
+                            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold leading-tight bg-gradient-to-r from-white via-violet-200 to-violet-400 bg-clip-text text-transparent">
                                 {book?.title}
                             </h1>
 
-                            <p className="text-slate-400 text-lg mb-8">
+                            <p className="text-slate-400 text-base sm:text-lg mb-6 sm:mb-8 mt-1">
                                 By {book?.author}
                             </p>
 
-                            <div className="relative overflow-hidden rounded-3xl border border-violet-500/20 bg-gradient-to-r from-violet-500/10 to-indigo-500/10 p-6 ">
+                            <div className="relative overflow-hidden rounded-3xl border border-violet-500/20 bg-gradient-to-r from-violet-500/10 to-indigo-500/10 p-5 sm:p-6 ">
 
-                                <h3 className="text-sm text-slate-400 mb-2">
+                                <h3 className="text-xs sm:text-sm text-slate-400 mb-1 sm:mb-2">
                                     Delivery Fee
                                 </h3>
 
-                                <h2 className="text-3xl font-black text-violet-400">
+                                <h2 className="text-2xl sm:text-3xl font-black text-violet-400">
                                     ${book?.deliveryFee}
                                 </h2>
 
@@ -208,7 +208,7 @@ const DetailsPage = async ({ params, searchParams }) => {
                                             <button
                                                 type="submit"
                                                 disabled={purchased || !canOrderToday}
-                                                className={`w-full rounded-2xl py-4 font-semibold transition-all duration-300 mt-3 ${
+                                                className={`w-full rounded-2xl py-3.5 sm:py-4 text-sm sm:text-base font-semibold transition-all duration-300 mt-3 ${
                                                     purchased
                                                         ? "bg-gray-500 cursor-not-allowed text-white"
                                                         : !canOrderToday
@@ -230,7 +230,7 @@ const DetailsPage = async ({ params, searchParams }) => {
                                     ) : (
                                         <Link
                                             href="/signin"
-                                            className="w-full block text-center bg-violet-600 hover:bg-violet-700 transition py-4 rounded-xl font-semibold"
+                                            className="w-full block text-center bg-violet-600 hover:bg-violet-700 transition py-3.5 sm:py-4 rounded-xl text-sm sm:text-base font-semibold"
                                         >
                                             Login to Request Delivery
                                         </Link>
@@ -247,13 +247,13 @@ const DetailsPage = async ({ params, searchParams }) => {
                 <BookXRay bookId={id} book={book} />
 
                 {/* Description */}
-                <div className="mt-8 rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl p-8">
+                <div className="mt-8 rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl p-5 sm:p-8">
 
-                    <h2 className="text-2xl font-bold mb-5">
+                    <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-5">
                         Description
                     </h2>
 
-                    <p className="text-slate-300 leading-8">
+                    <p className="text-slate-300 text-sm sm:text-base leading-relaxed sm:leading-8">
                         {book?.description}
                     </p>
 
@@ -261,14 +261,14 @@ const DetailsPage = async ({ params, searchParams }) => {
 
 
 
-                <div className="mt-8 bg-slate-900 rounded-3xl border border-slate-800 p-6 md:p-8">
+                <div className="mt-8 bg-slate-900 rounded-3xl border border-slate-800 p-5 sm:p-8">
 
-                    <div className="flex items-center justify-between mb-8">
-                        <h2 className="text-2xl font-bold text-white">
+                    <div className="flex items-center justify-between mb-6 sm:mb-8">
+                        <h2 className="text-xl sm:text-2xl font-bold text-white">
                             Reviews ({reviews.length})
                         </h2>
 
-                        <span className="px-4 py-2 rounded-xl bg-violet-500/10 border border-violet-500/20 text-violet-400 text-sm font-medium">
+                        <span className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs sm:text-sm font-medium">
                             Reader Feedback
                         </span>
                     </div>

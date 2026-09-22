@@ -109,30 +109,30 @@ export default function UserOverview() {
     return (
         <div className="space-y-8">
             <div>
-                <h1 className="text-3xl font-extrabold text-white">
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
                     Welcome back, <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">{user?.name}</span>
                 </h1>
-                <p className="text-slate-400 mt-2">
+                <p className="text-slate-400 mt-1 sm:mt-2 text-xs sm:text-sm">
                     Here's a quick overview of your reading activity and delivery history.
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 {cards.map((card, idx) => {
                     const Icon = card.icon;
                     return (
                         <div
                             key={idx}
-                            className={`relative overflow-hidden rounded-3xl p-6 border bg-gradient-to-br ${card.bg} backdrop-blur-xl shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl`}
+                            className={`relative overflow-hidden rounded-3xl p-5 sm:p-6 border bg-gradient-to-br ${card.bg} backdrop-blur-xl shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl`}
                         >
                             <div className="flex items-center justify-between">
-                                <div className="p-3 bg-white/5 border border-white/10 rounded-2xl">
-                                    <Icon className={`w-6 h-6 ${card.color}`} />
+                                <div className="p-2.5 sm:p-3 bg-white/5 border border-white/10 rounded-2xl">
+                                    <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${card.color}`} />
                                 </div>
                             </div>
-                            <div className="mt-4">
-                                <p className="text-sm font-semibold text-slate-400">{card.label}</p>
-                                <h3 className="text-3xl font-extrabold text-white mt-2">
+                            <div className="mt-3 sm:mt-4">
+                                <p className="text-xs sm:text-sm font-semibold text-slate-400">{card.label}</p>
+                                <h3 className="text-2xl sm:text-3xl font-extrabold text-white mt-1 sm:mt-2">
                                     {card.value}
                                 </h3>
                             </div>

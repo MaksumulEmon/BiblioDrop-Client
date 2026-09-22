@@ -23,21 +23,21 @@ const FeaturedBook = async () => {
 
                     {/* LEFT TITLE */}
                     <div>
-                        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white">
+                        <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold tracking-tight text-white">
                             Featured{" "}
                             <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
                                 Books
                             </span>
                         </h1>
 
-                        <p className="mt-3 text-sm md:text-base text-slate-400 max-w-xl leading-relaxed">
+                        <p className="mt-2 sm:mt-3 text-xs sm:text-sm md:text-base text-slate-400 max-w-xl leading-relaxed">
                             Discover top-rated and trending books curated for your reading journey.
                         </p>
                     </div>
 
                     {/* RIGHT BUTTON */}
                     <Link href="/all-books">
-                        <button className="group relative flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 hover:-translate-y-1 transition-all duration-300">
+                        <button className="group relative flex items-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3 rounded-xl font-semibold text-xs sm:text-sm md:text-base text-white bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 hover:-translate-y-1 transition-all duration-300">
 
                             <span className="absolute inset-0 rounded-xl bg-white/10 opacity-0 group-hover:opacity-100 transition" />
 
@@ -60,16 +60,16 @@ const FeaturedBook = async () => {
                             <Building2 size={40} className="text-blue-400" />
                         </div>
 
-                        <h2 className="text-2xl font-bold text-white">
+                        <h2 className="text-xl sm:text-2xl font-bold text-white">
                             No Books Found
                         </h2>
 
-                        <p className="text-slate-400 mt-3 max-w-md leading-relaxed">
+                        <p className="text-slate-400 mt-2 sm:mt-3 text-xs sm:text-sm md:text-base max-w-md leading-relaxed">
                             Currently there are no featured books available. Please check again later or add new books.
                         </p>
 
                         <Link href="/add-room">
-                            <button className="mt-6 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold shadow-lg hover:scale-105 transition">
+                            <button className="mt-6 px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs sm:text-sm md:text-base font-semibold shadow-lg hover:scale-105 transition">
                                 + Add New Book
                             </button>
                         </Link>
