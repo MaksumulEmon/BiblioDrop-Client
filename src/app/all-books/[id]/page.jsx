@@ -1,6 +1,7 @@
 
 import { DeleteAlert } from "@/Components/DeleteAlert";
 import { EditModal } from "@/Components/EditModal";
+import { BookXRay } from "@/Components/BookXRay";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Image from "next/image";
@@ -191,6 +192,9 @@ const DetailsPage = async ({ params }) => {
                     </div>
 
                 </div>
+
+                {/* AI Book X-Ray & Voice Intelligence */}
+                <BookXRay bookId={id} book={book} />
 
                 {/* Description */}
                 <div className="mt-8 rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl p-8">
